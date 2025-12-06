@@ -1,6 +1,6 @@
-Core/Src/logic_game.o: ../Core/Src/logic_game.c ../Core/Inc/global.h \
- ../Core/Inc/button.h ../Core/Inc/main.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+Core/Src/mode_single_spin.o: ../Core/Src/mode_single_spin.c \
+ ../Core/Inc/mode_single_spin.h ../Core/Inc/global.h ../Core/Inc/button.h \
+ ../Core/Inc/main.h ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -26,11 +26,11 @@ Core/Src/logic_game.o: ../Core/Src/logic_game.c ../Core/Inc/global.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- ../Core/Inc/display_7SEG.h ../Core/Inc/global.h \
- ../Core/Inc/display_LCD.h ../Core/Inc/random_gen.h \
- ../Core/Inc/software_timer.h ../Core/Inc/mode_single_spin.h \
- ../Core/Inc/logic_game.h ../Core/Inc/display_7SEG.h ../Core/Inc/button.h \
- ../Core/Inc/random_gen.h ../Core/Inc/software_timer.h
+ ../Core/Inc/display_7SEG.h ../Core/Inc/display_LCD.h \
+ ../Core/Inc/random_gen.h ../Core/Inc/software_timer.h \
+ ../Core/Inc/mode_single_spin.h
+
+../Core/Inc/mode_single_spin.h:
 
 ../Core/Inc/global.h:
 
@@ -92,8 +92,6 @@ Core/Src/logic_game.o: ../Core/Src/logic_game.c ../Core/Inc/global.h \
 
 ../Core/Inc/display_7SEG.h:
 
-../Core/Inc/global.h:
-
 ../Core/Inc/display_LCD.h:
 
 ../Core/Inc/random_gen.h:
@@ -101,13 +99,3 @@ Core/Src/logic_game.o: ../Core/Src/logic_game.c ../Core/Inc/global.h \
 ../Core/Inc/software_timer.h:
 
 ../Core/Inc/mode_single_spin.h:
-
-../Core/Inc/logic_game.h:
-
-../Core/Inc/display_7SEG.h:
-
-../Core/Inc/button.h:
-
-../Core/Inc/random_gen.h:
-
-../Core/Inc/software_timer.h:

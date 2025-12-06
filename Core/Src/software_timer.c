@@ -6,7 +6,7 @@
  */
 
 
-#define MAX_TIMER 	20
+#define MAX_TIMER 	50
 #define TICK		10
 
 

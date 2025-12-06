@@ -117,11 +117,6 @@ int main(void)
 	  }
 
 	  if(isTimerExpired(1) == 1){
-//		  led_buffer[0] = random_digit();
-//		  led_buffer[1] = random_digit();
-//		  led_buffer[2] = random_digit();
-//
-//		  display_3_digit();
 		  FSM_game_control();
 		  setTimer(1, 10);
 	  }

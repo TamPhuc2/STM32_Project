@@ -5,6 +5,7 @@
  *      Author: tntam
  */
 
+#include "global.h"
 #include "logic_game.h"
 #include "display_7SEG.h"
 #include "button.h"
@@ -23,44 +24,35 @@ void FSM_game_control(){
 
 		//next state
 		if(isButtonPressed(0) == 1){
-			led_buffer[0] = 0;
-			led_buffer[1] = 0;
-			led_buffer[2] = 1;
-			display_3_digit();
-			status = MODE_SINGLE_SPIN;
-			//setButtonFlag(0);
+			display7SEG_mode_single_spin();
 		}
 		break;
 	case MODE_SINGLE_SPIN:
-		//spin
+		//set spin flag, speed
 		if(isButtonPressed(1) == 1){
-			//display_3_digit();
 			spin_flag = 1;
-			setTimer(2, 3000);
+			setTimer(2, 3000);//spin in 3 seconds
+			setTimer(3, 100);//default speed
 		}
-		if(spin_flag == 1)
-		{
-			led_buffer[0] = random_digit();
-			led_buffer[1] = random_digit();
-			led_buffer[2] = random_digit();
-			display_3_digit();
+		//spinning
+		if(spin_flag == 1){
+			spinning_mode_single();
 		}
+		//time out -> display 7SEG
 		if(isTimerExpired(2)== 1){
 			spin_flag = 0;
 			display_3_digit();
 		}
 		//next state
 		if(isButtonPressed(0) == 1){
+			led_buffer[0] = 0;
+			led_buffer[1] = 0;
+			led_buffer[2] = 2;
+			display_3_digit();
 			status = MODE_HOLD_SPIN;
-			setButtonFlag(0);
 		}
 		break;
 	case MODE_HOLD_SPIN:
-		//display current mode
-		led_buffer[0] = 0;
-		led_buffer[1] = 0;
-		led_buffer[2] = 2;
-
 		//spin
 		if(isButtonPressed(1) == 1){
 			led_buffer[0] = random_digit();
@@ -70,15 +62,14 @@ void FSM_game_control(){
 		}
 		//next state
 		if(isButtonPressed(0) == 1){
+			led_buffer[0] = 0;
+			led_buffer[1] = 0;
+			led_buffer[2] = 3;
+			display_3_digit();
 			status = MODE_ACCEL_DECEL_SPIN;
-			setButtonFlag(0);
 		}
 		break;
 	case MODE_ACCEL_DECEL_SPIN:
-		//display current mode
-		led_buffer[0] = 0;
-		led_buffer[1] = 0;
-		led_buffer[2] = 3;
 
 		//spin
 		if(isButtonPressed(1) == 1){
@@ -89,15 +80,16 @@ void FSM_game_control(){
 		}
 		//next state
 		if(isButtonPressed(0) == 1){
+			led_buffer[0] = 0;
+			led_buffer[1] = 0;
+			led_buffer[2] = 4;
+			display_3_digit();
 			status = MODE_TWO_PLAYERS;
-			setButtonFlag(0);
+
 		}
 		break;
 	case MODE_TWO_PLAYERS:
 		//display current mode
-		led_buffer[0] = 0;
-		led_buffer[1] = 0;
-		led_buffer[2] = 4;
 
 		//spin
 		if(isButtonPressed(1) == 1){
@@ -108,8 +100,10 @@ void FSM_game_control(){
 		}
 		//next state
 		if(isButtonPressed(0) == 1){
+			led_buffer[0] = 0;
+			led_buffer[1] = 0;
+			led_buffer[2] = 0;
 			status = INIT;
-			setButtonFlag(0);
 		}
 		break;
 	default:
