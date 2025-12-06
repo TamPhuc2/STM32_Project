@@ -1,0 +1,6 @@
+display_7SEG.c:27:20:clk_pulse	8	static
+display_7SEG.c:32:20:latch_pulse	8	static
+display_7SEG.c:37:6:shift_byte	24	static
+display_7SEG.c:44:6:HC595_Send3_GPIO	16	static
+display_7SEG.c:54:9:invert_byte	16	static
+display_7SEG.c:58:6:display_3_digit	24	static

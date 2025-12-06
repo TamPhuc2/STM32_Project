@@ -12,6 +12,7 @@ C_SRCS += \
 ../Core/Src/global.c \
 ../Core/Src/logic_game.c \
 ../Core/Src/main.c \
+../Core/Src/random_gen.c \
 ../Core/Src/software_timer.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
@@ -27,6 +28,7 @@ OBJS += \
 ./Core/Src/global.o \
 ./Core/Src/logic_game.o \
 ./Core/Src/main.o \
+./Core/Src/random_gen.o \
 ./Core/Src/software_timer.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
@@ -42,6 +44,7 @@ C_DEPS += \
 ./Core/Src/global.d \
 ./Core/Src/logic_game.d \
 ./Core/Src/main.d \
+./Core/Src/random_gen.d \
 ./Core/Src/software_timer.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
