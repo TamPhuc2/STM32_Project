@@ -1,8 +1,11 @@
 /*
  * global.c
  *
- *  Created on: Nov 28, 2025
- *      Author: tntam
+ *  Created on: Dec 4, 2025
+ *      Author: Ha Trong Son
  */
 
+#include "global.h"
 
+int status = INIT;
+int status_temp = INIT;

@@ -1,8 +1,8 @@
 /*
  * buzzer.c
  *
- *  Created on: Nov 28, 2025
- *      Author: tntam
+ *  Created on: Dec 5, 2025
+ *      Author: Ha Trong Son
  */
 
 

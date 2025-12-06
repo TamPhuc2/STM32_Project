@@ -1,0 +1,4 @@
+random_gen.c:16:17:adc_read	16	static
+random_gen.c:24:6:random_init	16	static
+random_gen.c:38:17:random32	4	static
+random_gen.c:44:5:random_digit	8	static
