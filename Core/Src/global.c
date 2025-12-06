@@ -6,3 +6,6 @@
  */
 
 #include "global.h"
+
+int status = INIT;
+int status_temp = INIT;

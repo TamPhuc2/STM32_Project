@@ -10,8 +10,10 @@ C_SRCS += \
 ../Core/Src/display_7SEG.c \
 ../Core/Src/display_LCD.c \
 ../Core/Src/global.c \
+../Core/Src/i2c_lcd.c \
 ../Core/Src/logic_game.c \
 ../Core/Src/main.c \
+../Core/Src/scheduler.c \
 ../Core/Src/software_timer.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
@@ -25,8 +27,10 @@ OBJS += \
 ./Core/Src/display_7SEG.o \
 ./Core/Src/display_LCD.o \
 ./Core/Src/global.o \
+./Core/Src/i2c_lcd.o \
 ./Core/Src/logic_game.o \
 ./Core/Src/main.o \
+./Core/Src/scheduler.o \
 ./Core/Src/software_timer.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
@@ -40,8 +44,10 @@ C_DEPS += \
 ./Core/Src/display_7SEG.d \
 ./Core/Src/display_LCD.d \
 ./Core/Src/global.d \
+./Core/Src/i2c_lcd.d \
 ./Core/Src/logic_game.d \
 ./Core/Src/main.d \
+./Core/Src/scheduler.d \
 ./Core/Src/software_timer.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
