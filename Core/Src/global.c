@@ -5,4 +5,7 @@
  *      Author: tntam
  */
 
+#include "global.h"
 
+
+int status = INIT;

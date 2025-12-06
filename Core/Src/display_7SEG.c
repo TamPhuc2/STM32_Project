@@ -24,12 +24,12 @@ const uint8_t SEG_CC[10] = {
     0x6F  // 9: a b c d f g
 };
 
-static inline void clk_pulse(void) {
+void clk_pulse(void) {
     HAL_GPIO_WritePin(SDK_GPIO_Port, SDK_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(SDK_GPIO_Port, SDK_Pin, GPIO_PIN_RESET);
 }
 
-static inline void latch_pulse(void) {
+void latch_pulse(void) {
     HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, GPIO_PIN_RESET);
 }

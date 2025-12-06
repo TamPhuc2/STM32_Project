@@ -22,7 +22,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
+#include "button.h"
+#include "random_gen.h"
+#include "display_7SEG.h"
+#include "logic_game.h"
+#include "global.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -40,8 +45,10 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim2;
 ADC_HandleTypeDef hadc1;
+
+TIM_HandleTypeDef htim2;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -50,6 +57,7 @@ ADC_HandleTypeDef hadc1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -75,7 +83,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  Button_Init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -88,24 +96,38 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  HAL_GPIO_WritePin(SDO_GPIO_Port, SDO_Pin, RESET);
-  HAL_GPIO_WritePin(SDK_GPIO_Port, SDK_Pin, RESET);
-  HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, RESET);
+  HAL_ADC_Start(&hadc1);
 
-
+  setTimer(0, 1000);
+  setTimer(1, 100);
+  setTimer(2, 100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-//	  HAL_GPIO_TogglePin(SDO_GPIO_Port, SDO_Pin);
-//	  HAL_GPIO_TogglePin(SDK_GPIO_Port, SDK_Pin);
-//	  HAL_GPIO_TogglePin(LOAD_GPIO_Port, LOAD_Pin);
-	  HAL_Delay(1000);
+	  //led blinky
+	  if(isTimerExpired(0) == 1){
+		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+		  setTimer(0, 1000);
+	  }
+
+	  if(isTimerExpired(1) == 1){
+//		  led_buffer[0] = random_digit();
+//		  led_buffer[1] = random_digit();
+//		  led_buffer[2] = random_digit();
+//
+//		  display_3_digit();
+		  FSM_game_control();
+		  setTimer(1, 10);
+	  }
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -121,6 +143,7 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
@@ -146,6 +169,57 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV2;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/**
+  * @brief ADC1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC1_Init(void)
+{
+
+  /* USER CODE BEGIN ADC1_Init 0 */
+
+  /* USER CODE END ADC1_Init 0 */
+
+  ADC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN ADC1_Init 1 */
+
+  /* USER CODE END ADC1_Init 1 */
+  /** Common config
+  */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 1;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_0;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC1_Init 2 */
+
+  /* USER CODE END ADC1_Init 2 */
+
 }
 
 /**
@@ -210,8 +284,8 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, SDO_Pin|SDK_Pin|LOAD_Pin|LED_RED_Pin
-                          |SDOA6_Pin|SDKA7_Pin|LOADA8_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, L7SEG_0_Pin|L7SEG_1_Pin|L7SEG_2_Pin|LED_RED_Pin
+                          |SDO_Pin|SDK_Pin|LOAD_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : LED_RED_1_Pin */
   GPIO_InitStruct.Pin = LED_RED_1_Pin;
@@ -220,19 +294,28 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_RED_1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SDO_Pin SDK_Pin LOAD_Pin LED_RED_Pin
-                           SDOA6_Pin SDKA7_Pin LOADA8_Pin */
-  GPIO_InitStruct.Pin = SDO_Pin|SDK_Pin|LOAD_Pin|LED_RED_Pin
-                          |SDOA6_Pin|SDKA7_Pin|LOADA8_Pin;
+  /*Configure GPIO pins : L7SEG_0_Pin L7SEG_1_Pin L7SEG_2_Pin LED_RED_Pin
+                           SDO_Pin SDK_Pin LOAD_Pin */
+  GPIO_InitStruct.Pin = L7SEG_0_Pin|L7SEG_1_Pin|L7SEG_2_Pin|LED_RED_Pin
+                          |SDO_Pin|SDK_Pin|LOAD_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : mode_button_Pin spin_button_Pin */
+  GPIO_InitStruct.Pin = mode_button_Pin|spin_button_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	timerRun();
+	getKeyInput();
+}
 /* USER CODE END 4 */
 
 /**

@@ -60,20 +60,24 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_RED_1_Pin GPIO_PIN_13
 #define LED_RED_1_GPIO_Port GPIOC
-#define SDO_Pin GPIO_PIN_1
-#define SDO_GPIO_Port GPIOA
-#define SDK_Pin GPIO_PIN_2
-#define SDK_GPIO_Port GPIOA
-#define LOAD_Pin GPIO_PIN_3
-#define LOAD_GPIO_Port GPIOA
+#define L7SEG_0_Pin GPIO_PIN_1
+#define L7SEG_0_GPIO_Port GPIOA
+#define L7SEG_1_Pin GPIO_PIN_2
+#define L7SEG_1_GPIO_Port GPIOA
+#define L7SEG_2_Pin GPIO_PIN_3
+#define L7SEG_2_GPIO_Port GPIOA
 #define LED_RED_Pin GPIO_PIN_5
 #define LED_RED_GPIO_Port GPIOA
-#define SDOA6_Pin GPIO_PIN_6
-#define SDOA6_GPIO_Port GPIOA
-#define SDKA7_Pin GPIO_PIN_7
-#define SDKA7_GPIO_Port GPIOA
-#define LOADA8_Pin GPIO_PIN_8
-#define LOADA8_GPIO_Port GPIOA
+#define SDO_Pin GPIO_PIN_6
+#define SDO_GPIO_Port GPIOA
+#define SDK_Pin GPIO_PIN_7
+#define SDK_GPIO_Port GPIOA
+#define LOAD_Pin GPIO_PIN_8
+#define LOAD_GPIO_Port GPIOA
+#define mode_button_Pin GPIO_PIN_9
+#define mode_button_GPIO_Port GPIOA
+#define spin_button_Pin GPIO_PIN_10
+#define spin_button_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

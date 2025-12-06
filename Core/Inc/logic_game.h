@@ -8,6 +8,9 @@
 #ifndef INC_LOGIC_GAME_H_
 #define INC_LOGIC_GAME_H_
 
+#include "global.h"
 
+
+void FSM_game_control();
 
 #endif /* INC_LOGIC_GAME_H_ */
