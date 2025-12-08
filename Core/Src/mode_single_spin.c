@@ -23,6 +23,6 @@ void spinning_mode_single(){
 	led_buffer[2] = random_digit();
 	if(isTimerExpired(3) == 1){
 		display_3_digit();
-		setTimer(3, 100);
+		setTimer(3, 120);
 	}
 }

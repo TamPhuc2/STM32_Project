@@ -28,6 +28,11 @@
 #include "display_7SEG.h"
 #include "logic_game.h"
 #include "global.h"
+#include "display_LCD.h"
+#include "i2c_lcd.h"
+#include "stm32f1xx_hal.h"
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +52,8 @@
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
 
+I2C_HandleTypeDef hi2c1;
+
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
@@ -58,6 +65,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -84,6 +92,8 @@ int main(void)
 
   /* USER CODE BEGIN Init */
   Button_Init();
+
+  HAL_Delay(100);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -97,13 +107,38 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_ADC_Start(&hadc1);
 
+
+
+  display_init();
+  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
+
+  // --- [TEST CODE] ĐOẠN MÃ TEST LCD ---
+  lcd_clear_display();
+  lcd_goto_XY(0, 0); // Hàng 1
+  lcd_send_string("TEST LCD OK!");
+
+  lcd_goto_XY(1, 0); // Hàng 2
+  lcd_send_string("Checking...");
+  HAL_Delay(2000); // Dừng 2s để bạn kịp nhìn thấy chữ "TEST LCD OK"
+
+
   setTimer(0, 1000);
   setTimer(1, 100);
   setTimer(2, 100);
+
+
+//  display_welcome_screen();
+//  lcd_goto_XY(1, 3);
+//  lcd_send_string("Welcome To");
+//
+//  lcd_goto_XY(2, 2);
+//  lcd_send_string("Lucky Spin Game");
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -112,7 +147,8 @@ int main(void)
   {
 	  //led blinky
 	  if(isTimerExpired(0) == 1){
-		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+		  //HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+		  HAL_GPIO_TogglePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin);
 		  setTimer(0, 1000);
 	  }
 
@@ -120,7 +156,6 @@ int main(void)
 		  FSM_game_control();
 		  setTimer(1, 10);
 	  }
-
 
 
     /* USER CODE END WHILE */
@@ -146,7 +181,9 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -155,9 +192,9 @@ void SystemClock_Config(void)
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
@@ -165,7 +202,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
-  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV2;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -214,6 +251,40 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
+
+}
+
+/**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
 
 }
 
@@ -274,13 +345,17 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, L7SEG_0_Pin|L7SEG_1_Pin|L7SEG_2_Pin|LED_RED_Pin
-                          |SDO_Pin|SDK_Pin|LOAD_Pin, GPIO_PIN_RESET);
+                          |LOAD_Pin|SDK_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(SDO_GPIO_Port, SDO_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : LED_RED_1_Pin */
   GPIO_InitStruct.Pin = LED_RED_1_Pin;
@@ -290,13 +365,20 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(LED_RED_1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : L7SEG_0_Pin L7SEG_1_Pin L7SEG_2_Pin LED_RED_Pin
-                           SDO_Pin SDK_Pin LOAD_Pin */
+                           LOAD_Pin SDK_Pin */
   GPIO_InitStruct.Pin = L7SEG_0_Pin|L7SEG_1_Pin|L7SEG_2_Pin|LED_RED_Pin
-                          |SDO_Pin|SDK_Pin|LOAD_Pin;
+                          |LOAD_Pin|SDK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : SDO_Pin */
+  GPIO_InitStruct.Pin = SDO_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SDO_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : mode_button_Pin spin_button_Pin */
   GPIO_InitStruct.Pin = mode_button_Pin|spin_button_Pin;

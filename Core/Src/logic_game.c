@@ -17,19 +17,21 @@ void FSM_game_control(){
 	switch(status){
 	case INIT:
 		//display mode
-		led_buffer[0] = 0;
-		led_buffer[1] = 0;
-		led_buffer[2] = 0;
+		display_welcome_screen();
+		led_buffer[0] = 9;
+		led_buffer[1] = 9;
+		led_buffer[2] = 9;
 		display_3_digit();
 
 		//next state
 		if(isButtonPressed(0) == 1){
 			display7SEG_mode_single_spin();
+			status = MODE_SINGLE_SPIN;
 		}
 		break;
 	case MODE_SINGLE_SPIN:
 		//set spin flag, speed
-		if(isButtonPressed(1) == 1){
+		if(isButtonPressed(1) == 1 && spin_flag != 1 && status == MODE_SINGLE_SPIN){
 			spin_flag = 1;
 			setTimer(2, 3000);//spin in 3 seconds
 			setTimer(3, 100);//default speed
@@ -49,6 +51,7 @@ void FSM_game_control(){
 			led_buffer[1] = 0;
 			led_buffer[2] = 2;
 			display_3_digit();
+			spin_flag = 0;
 			status = MODE_HOLD_SPIN;
 		}
 		break;

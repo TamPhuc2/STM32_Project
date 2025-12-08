@@ -1,5 +1,5 @@
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o: \
- ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c \
+Core/Src/i2c_lcd.o: ../Core/Src/i2c_lcd.c ../Core/Inc/i2c_lcd.h \
+ ../Core/Inc/global.h ../Core/Inc/button.h ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -26,7 +26,18 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o: \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
+ ../Core/Inc/display_7SEG.h ../Core/Inc/display_LCD.h \
+ ../Core/Inc/i2c_lcd.h ../Core/Inc/random_gen.h \
+ ../Core/Inc/software_timer.h ../Core/Inc/mode_single_spin.h
+
+../Core/Inc/i2c_lcd.h:
+
+../Core/Inc/global.h:
+
+../Core/Inc/button.h:
+
+../Core/Inc/main.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 
@@ -81,3 +92,15 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o: \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
+
+../Core/Inc/display_7SEG.h:
+
+../Core/Inc/display_LCD.h:
+
+../Core/Inc/i2c_lcd.h:
+
+../Core/Inc/random_gen.h:
+
+../Core/Inc/software_timer.h:
+
+../Core/Inc/mode_single_spin.h:

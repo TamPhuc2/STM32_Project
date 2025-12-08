@@ -68,16 +68,20 @@ void Error_Handler(void);
 #define L7SEG_2_GPIO_Port GPIOA
 #define LED_RED_Pin GPIO_PIN_5
 #define LED_RED_GPIO_Port GPIOA
-#define SDO_Pin GPIO_PIN_6
-#define SDO_GPIO_Port GPIOA
+#define LOAD_Pin GPIO_PIN_6
+#define LOAD_GPIO_Port GPIOA
 #define SDK_Pin GPIO_PIN_7
 #define SDK_GPIO_Port GPIOA
-#define LOAD_Pin GPIO_PIN_8
-#define LOAD_GPIO_Port GPIOA
+#define SDO_Pin GPIO_PIN_0
+#define SDO_GPIO_Port GPIOB
 #define mode_button_Pin GPIO_PIN_9
 #define mode_button_GPIO_Port GPIOA
 #define spin_button_Pin GPIO_PIN_10
 #define spin_button_GPIO_Port GPIOA
+#define SCL_Pin GPIO_PIN_6
+#define SCL_GPIO_Port GPIOB
+#define SDA_Pin GPIO_PIN_7
+#define SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

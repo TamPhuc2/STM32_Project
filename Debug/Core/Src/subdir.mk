@@ -10,6 +10,7 @@ C_SRCS += \
 ../Core/Src/display_7SEG.c \
 ../Core/Src/display_LCD.c \
 ../Core/Src/global.c \
+../Core/Src/i2c_lcd.c \
 ../Core/Src/logic_game.c \
 ../Core/Src/main.c \
 ../Core/Src/mode_single_spin.c \
@@ -27,6 +28,7 @@ OBJS += \
 ./Core/Src/display_7SEG.o \
 ./Core/Src/display_LCD.o \
 ./Core/Src/global.o \
+./Core/Src/i2c_lcd.o \
 ./Core/Src/logic_game.o \
 ./Core/Src/main.o \
 ./Core/Src/mode_single_spin.o \
@@ -44,6 +46,7 @@ C_DEPS += \
 ./Core/Src/display_7SEG.d \
 ./Core/Src/display_LCD.d \
 ./Core/Src/global.d \
+./Core/Src/i2c_lcd.d \
 ./Core/Src/logic_game.d \
 ./Core/Src/main.d \
 ./Core/Src/mode_single_spin.d \

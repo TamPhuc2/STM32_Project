@@ -12,12 +12,12 @@ Button_t buttons[NUM_BUTTONS];
 
 GPIO_TypeDef* BUTTON_PORTS[NUM_BUTTONS] = {
 		mode_button_GPIO_Port,
-		spin_button_GPIO_Port
+		spin_button_GPIO_Port,
 };
 
 uint16_t BUTTON_PINS[NUM_BUTTONS] = {
 		mode_button_Pin,
-		spin_button_Pin
+		spin_button_Pin,
 };
 
 // IMPLEMENTATION
