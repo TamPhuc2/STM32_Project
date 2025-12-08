@@ -8,6 +8,7 @@
 #ifndef INC_MODE_SINGLE_SPIN_H_
 #define INC_MODE_SINGLE_SPIN_H_
 
+int check_result_single_player();
 void mode_single_spin();
 
 #endif /* INC_MODE_SINGLE_SPIN_H_ */

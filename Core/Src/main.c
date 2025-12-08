@@ -119,16 +119,6 @@ int main(void)
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  setTimer(0, 100);
 	  }
-	  if (isTimerExpired(1) == 1){
-		  led_buffer[0] = random_digit();
-		  led_buffer[1] = random_digit();
-		  led_buffer[2] = random_digit();
-
-		  display_3_digit();
-		  setTimer(1, 5);
-	  }
-	  lcd_goto_XY(1, 0);
-	  lcd_send_string("HTS");
 
     /* USER CODE END WHILE */
 

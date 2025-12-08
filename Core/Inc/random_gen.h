@@ -11,4 +11,5 @@
 void random_init();
 int random_digit();
 
+
 #endif /* INC_RANDOM_GEN_H_ */

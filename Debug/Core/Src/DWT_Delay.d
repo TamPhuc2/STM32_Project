@@ -1,5 +1,4 @@
-Core/Src/mode_hold_spin.o: ../Core/Src/mode_hold_spin.c \
- ../Core/Inc/mode_hold_spin.h ../Core/Inc/button.h ../Core/Inc/main.h \
+Core/Src/DWT_Delay.o: ../Core/Src/DWT_Delay.c ../Core/Inc/DWT_Delay.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -26,16 +25,9 @@ Core/Src/mode_hold_spin.o: ../Core/Src/mode_hold_spin.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- ../Core/Inc/global.h ../Core/Inc/software_timer.h \
- ../Core/Inc/display_7SEG.h ../Core/Inc/global.h \
- ../Core/Inc/display_LCD.h ../Core/Inc/random_gen.h
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 
-../Core/Inc/mode_hold_spin.h:
-
-../Core/Inc/button.h:
-
-../Core/Inc/main.h:
+../Core/Inc/DWT_Delay.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 
@@ -90,15 +82,3 @@ Core/Src/mode_hold_spin.o: ../Core/Src/mode_hold_spin.c \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
-
-../Core/Inc/global.h:
-
-../Core/Inc/software_timer.h:
-
-../Core/Inc/display_7SEG.h:
-
-../Core/Inc/global.h:
-
-../Core/Inc/display_LCD.h:
-
-../Core/Inc/random_gen.h:

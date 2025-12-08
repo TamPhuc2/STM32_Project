@@ -6,9 +6,9 @@
  */
 
 #include "display_7SEG.h"
-
+#include "global.h"
 int index_led = 0;
-int led_buffer[MAX_LED] = {1, 2, 3};
+
 
 const uint8_t SEG_CC[10] = {
     0x3F, // 0: a b c d e f
@@ -23,12 +23,12 @@ const uint8_t SEG_CC[10] = {
     0x6F  // 9: a b c d f g
 };
 
-static inline void clk_pulse(void) {
+void clk_pulse(void) {
     HAL_GPIO_WritePin(SCLK_GPIO_Port, SCLK_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(SCLK_GPIO_Port, SCLK_Pin, GPIO_PIN_RESET);
 }
 
-static inline void latch_pulse(void) {
+void latch_pulse(void) {
     HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, GPIO_PIN_RESET);
 }
@@ -54,11 +54,17 @@ uint8_t invert_byte(uint8_t x) {
     return (~x) & 0x7F; // chỉ 7 bit a..g, giữ DP = 0 nếu cần
 }
 
+void update_led_buffer(int num1, int num2, int num3){
+	led_buffer[0] = num1;
+	led_buffer[1] = num2;
+	led_buffer[2] = num3;
+}
+
 void display_3_digit(void) {
     uint8_t b1 = SEG_CC[led_buffer[0]];
     uint8_t b2 = SEG_CC[led_buffer[1]];
     uint8_t b3 = SEG_CC[led_buffer[2]];
 
     // Gửi theo thứ tự U1 → U2 → U3
-    HC595_Send3_GPIO(invert_byte(b3), invert_byte(b2), invert_byte(b1) );
+    HC595_Send3_GPIO(invert_byte(b1), invert_byte(b2), invert_byte(b3) );
 }

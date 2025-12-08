@@ -26,6 +26,7 @@ typedef struct {
 
     int flag_pressed;
     int flag_long_pressed;
+    int flag_released; // new attribute
 } Button_t;
 
 // API
@@ -37,5 +38,6 @@ void subKeyProcess(int index);
 void setButtonFlag(int index);
 int isButtonPressed(int index);
 int isButtonLongPressed(int index);
+int isButtonReleased(int index);
 
 #endif /* INC_BUTTON_H_ */

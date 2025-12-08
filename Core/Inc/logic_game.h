@@ -8,6 +8,6 @@
 #ifndef INC_LOGIC_GAME_H_
 #define INC_LOGIC_GAME_H_
 
-
+void logic_game();
 
 #endif /* INC_LOGIC_GAME_H_ */

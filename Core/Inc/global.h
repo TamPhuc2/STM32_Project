@@ -15,9 +15,14 @@
 #define MODE_HOLD_SPIN			2
 #define MODE_ACCEL_DECEL_SPIN	3
 #define MODE_TWO_PLAYERS		4
+#define LIST_MODES				5
+
+#define ERROR					99
+
+#define MAX_LED 	3
 
 extern int status;
 extern int status_temp;
-
-
+extern int led_buffer[MAX_LED];
+extern int last_time;
 #endif /* INC_GLOBAL_H_ */
