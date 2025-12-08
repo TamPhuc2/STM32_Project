@@ -134,7 +134,7 @@ int main(void)
    lcd_send_string("LINE3");
 
    HAL_Delay(5000); // Để bạn nhìn rõ LCD có hoạt động
-
+   lcd_clear_display();
 
   setTimer(0, 1000);
   setTimer(1, 100);

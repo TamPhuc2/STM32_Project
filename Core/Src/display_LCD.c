@@ -20,15 +20,13 @@ void clear_mark(int);
 
 void display_init() {
     lcd_init();
-    // [QUAN TRỌNG] Khởi động timer ngay khi init để tránh việc quên set trong main
-//    setTimer(TIMER_LCD_ANIMATION, LCD_UPDATE_CYCLE);
-//    setTimer(TIMER_BLINK, BLINK_CYCLE);
+
 }
 
 /* ========== 1. Welcome Screen ========== */
 void display_welcome_screen() {
 	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
-    lcd_clear_display();
+    //lcd_clear_display();
     lcd_goto_XY(0, 5);
     lcd_send_string("Welcome To");
 

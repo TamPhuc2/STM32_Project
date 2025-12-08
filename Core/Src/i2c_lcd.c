@@ -150,16 +150,31 @@ void lcd_clear_display(void)
     HAL_Delay(2);
 }
 
-void lcd_goto_XY(int row, int col)
+//void lcd_goto_XY(int row, int col)
+//{
+//    uint8_t address;
+//
+//    if (row == 0) address = 0x80 + col;
+//    else address = 0xC0 + col;
+//
+//    lcd_send_cmd(address);
+//}
+
+void lcd_goto_XY (int row, int col)
 {
-    uint8_t address;
+    uint8_t pos_Addr;
 
-    if (row == 0) address = 0x80 + col;
-    else address = 0xC0 + col;
+    switch(row)
+    {
+        case 0: pos_Addr = 0x80 + col;      break; // hàng 0
+        case 1: pos_Addr = 0xC0 + col;      break; // hàng 1
+        case 2: pos_Addr = 0x94 + col;      break; // hàng 2 (0x14 + 0x80)
+        case 3: pos_Addr = 0xD4 + col;      break; // hàng 3 (0x54 + 0x80)
+        default: pos_Addr = 0x80;           break;
+    }
 
-    lcd_send_cmd(address);
+    lcd_send_cmd(pos_Addr);
 }
-
 void lcd_init(void)
 {
     HAL_Delay(50);
