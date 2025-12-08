@@ -29,10 +29,10 @@ void display_init() {
 void display_welcome_screen() {
 	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
     lcd_clear_display();
-    lcd_goto_XY(1, 3);
+    lcd_goto_XY(0, 5);
     lcd_send_string("Welcome To");
 
-    lcd_goto_XY(2, 2);
+    lcd_goto_XY(3, 3);
     lcd_send_string("Lucky Spin Game");
 }
 
@@ -109,37 +109,19 @@ void clear_mark(int mode){
 // mode value from 0 to 3
 void display_playing_mode(int mode) {
 
-//	clear_mark(mode);
-//
-//	lcd_goto_XY(mode, 1);
-//	lcd_send_string("1P-Accel decel spin");
-//
-//	lcd_goto_XY(mode, 1);
-//	lcd_send_string("1P-Hold spin");
-//
-//	lcd_goto_XY(mode, 1);
-//	lcd_send_string("1P-Single spin");
-//
-//	lcd_goto_XY(mode, 1);
-//	lcd_send_string("2P-Two players");
-//
-//	display_mark(mode);
-//
-//	if(isTimerExpired(TIMER_BLINK)){
-//		currmark = !currmark;
-//		setTimer(TIMER_BLINK, BLINK_CYCLE);
-//	}
-	lcd_goto_XY(0, 1); // Code cũ của bạn là mode, nhưng menu thì nên cố định vị trí?
-    // Giả sử menu cố định dòng 0,1,2,3
-    // Nếu bạn muốn in menu cố định:
-    // lcd_goto_XY(1, 1); lcd_send_string("1P-Accel decel spin"); ...
-    // Code dưới đây giữ nguyên logic của bạn nhưng tối ưu Timer
+	clear_mark(mode);
 
-    // In menu (Nên đưa ra ngoài hàm này nếu có thể, chỉ in 1 lần)
-	lcd_goto_XY(0, 1); lcd_send_string("1P-Accel decel spin");
-	lcd_goto_XY(1, 1); lcd_send_string("1P-Hold spin");
-	lcd_goto_XY(2, 1); lcd_send_string("1P-Single spin");
-	lcd_goto_XY(3, 1); lcd_send_string("2P-Two players"); // Sửa lại index cho LCD 20x4
+	lcd_goto_XY(mode, 1);
+	lcd_send_string("1P-Accel decel spin");
+
+	lcd_goto_XY(mode, 1);
+	lcd_send_string("1P-Hold spin");
+
+	lcd_goto_XY(mode, 1);
+	lcd_send_string("1P-Single spin");
+
+	lcd_goto_XY(mode, 1);
+	lcd_send_string("2P-Two players");
 
 	display_mark(mode);
 
@@ -147,6 +129,7 @@ void display_playing_mode(int mode) {
 		currmark = !currmark;
 		setTimer(TIMER_BLINK, BLINK_CYCLE);
 	}
+
 }
 
 

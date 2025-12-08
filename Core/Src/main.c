@@ -92,7 +92,6 @@ int main(void)
 
   /* USER CODE BEGIN Init */
   Button_Init();
-
   HAL_Delay(100);
   /* USER CODE END Init */
 
@@ -117,27 +116,30 @@ int main(void)
   display_init();
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
 
-  // --- [TEST CODE] ĐOẠN MÃ TEST LCD ---
-  lcd_clear_display();
-  lcd_goto_XY(0, 0); // Hàng 1
-  lcd_send_string("TEST LCD OK!");
+  lcd_init();
+   HAL_Delay(100);
 
-  lcd_goto_XY(1, 0); // Hàng 2
-  lcd_send_string("Checking...");
-  HAL_Delay(2000); // Dừng 2s để bạn kịp nhìn thấy chữ "TEST LCD OK"
+
+   lcd_clear_display();
+   lcd_goto_XY(0, 0);
+   lcd_send_string("LCD CONNECTED!");
+
+   lcd_goto_XY(1, 0);
+   lcd_send_string("Addr: 0x27 READY");
+
+   lcd_goto_XY(2, 14);
+   lcd_send_string("LINE2");
+
+   lcd_goto_XY(3, 0);
+   lcd_send_string("LINE3");
+
+   HAL_Delay(5000); // Để bạn nhìn rõ LCD có hoạt động
 
 
   setTimer(0, 1000);
   setTimer(1, 100);
   setTimer(2, 100);
 
-
-//  display_welcome_screen();
-//  lcd_goto_XY(1, 3);
-//  lcd_send_string("Welcome To");
-//
-//  lcd_goto_XY(2, 2);
-//  lcd_send_string("Lucky Spin Game");
 
   /* USER CODE END 2 */
 

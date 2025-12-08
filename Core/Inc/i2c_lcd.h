@@ -11,6 +11,8 @@
 #include "global.h"
 #include "stm32f1xx_hal.h"
 
+#define SLAVE_ADDRESS_LCD (0x27 << 1)
+
 void lcd_init (void);   // initialize lcd
 
 void lcd_send_cmd (char cmd);  // send command to the lcd

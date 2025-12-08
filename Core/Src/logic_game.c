@@ -17,6 +17,7 @@ void FSM_game_control(){
 	switch(status){
 	case INIT:
 		//display mode
+		lcd_clear_display();
 		display_welcome_screen();
 		led_buffer[0] = 9;
 		led_buffer[1] = 9;
