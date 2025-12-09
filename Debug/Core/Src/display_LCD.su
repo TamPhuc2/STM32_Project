@@ -1,7 +1,7 @@
 display_LCD.c:21:6:display_init	8	static
 display_LCD.c:27:6:display_welcome_screen	8	static
-display_LCD.c:38:6:display_announcement	16	static
-display_LCD.c:92:6:display_mark	16	static
-display_LCD.c:102:6:clear_mark	16	static
-display_LCD.c:108:6:display_playing_mode	16	static
-display_LCD.c:136:6:display_while_playing	80	static
+display_LCD.c:37:6:display_announcement	16	static
+display_LCD.c:91:6:display_mark	16	static
+display_LCD.c:101:6:clear_mark	16	static
+display_LCD.c:107:6:display_playing_mode	16	static
+display_LCD.c:144:6:display_while_playing	80	static

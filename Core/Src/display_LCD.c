@@ -25,12 +25,11 @@ void display_init() {
 
 /* ========== 1. Welcome Screen ========== */
 void display_welcome_screen() {
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
-    //lcd_clear_display();
+    lcd_clear_display();
     lcd_goto_XY(0, 5);
     lcd_send_string("Welcome To");
 
-    lcd_goto_XY(3, 3);
+    lcd_goto_XY(2, 3);
     lcd_send_string("Lucky Spin Game");
 }
 
@@ -39,43 +38,43 @@ void display_announcement(int announce_num) {
 	lcd_clear_display();
     switch (announce_num){
     case START:
-    	lcd_goto_XY(1, 4);
+    	lcd_goto_XY(1, 8);
     	lcd_send_string("START");
     	break;
     case BIGWIN:
-    	lcd_goto_XY(1, 3);
+    	lcd_goto_XY(1, 7);
     	lcd_send_string("BIG WIN!");
     	break;
     case BETTER_LUCK_NEXT_TIME:
-    	lcd_goto_XY(1, 1);
-    	lcd_send_string("BETTER LUCK NEXT TIME!");
+    	lcd_goto_XY(1, 0);
+    	lcd_send_string("GOOD LUCK NEXT TIME!");
     	break;
     case P1_LOSE:
-    	lcd_goto_XY(1, 3);
+    	lcd_goto_XY(1, 5);
     	lcd_send_string("P1");
-    	lcd_goto_XY(1, 10);
+    	lcd_goto_XY(1, 13);
     	lcd_send_string("P2");
-    	lcd_goto_XY(2, 2);
+    	lcd_goto_XY(2, 3);
     	lcd_send_string("LOSER");
-    	lcd_goto_XY(2, 9);
+    	lcd_goto_XY(2, 12);
     	lcd_send_string("WINER");
     	break;
     case P2_LOSE:
-    	lcd_goto_XY(1, 3);
+    	lcd_goto_XY(1, 5);
     	lcd_send_string("P1");
-    	lcd_goto_XY(1, 10);
+    	lcd_goto_XY(1, 13);
     	lcd_send_string("P2");
-    	lcd_goto_XY(2, 2);
+    	lcd_goto_XY(2, 3);
     	lcd_send_string("WINER");
-    	lcd_goto_XY(2, 9);
+    	lcd_goto_XY(2, 12);
     	lcd_send_string("LOSER");
     	break;
     case TIE:
-    	lcd_goto_XY(1, 3);
+    	lcd_goto_XY(1, 5);
     	lcd_send_string("P1");
-    	lcd_goto_XY(1, 10);
+    	lcd_goto_XY(1, 13);
     	lcd_send_string("P2");
-    	lcd_goto_XY(2, 2);
+    	lcd_goto_XY(2, 1);
     	lcd_send_string("THE SCORE IS EVEN!");
     	break;
     default:
@@ -109,17 +108,26 @@ void display_playing_mode(int mode) {
 
 	clear_mark(mode);
 
-	lcd_goto_XY(mode, 1);
-	lcd_send_string("1P-Accel decel spin");
+	switch (mode){
+	case 0:
+		lcd_goto_XY(mode, 1);
+		lcd_send_string("1P-Accel decel spin");
+		break;
+	case 1:
+		lcd_goto_XY(mode, 1);
+		lcd_send_string("1P-Hold spin");
+		break;
+	case 2:
+		lcd_goto_XY(mode, 1);
+		lcd_send_string("1P-Single spin");
+		break;
+	case 3:
+		lcd_goto_XY(mode, 1);
+		lcd_send_string("2P-Two players");
+		break;
+	default: break;
+	}
 
-	lcd_goto_XY(mode, 1);
-	lcd_send_string("1P-Hold spin");
-
-	lcd_goto_XY(mode, 1);
-	lcd_send_string("1P-Single spin");
-
-	lcd_goto_XY(mode, 1);
-	lcd_send_string("2P-Two players");
 
 	display_mark(mode);
 

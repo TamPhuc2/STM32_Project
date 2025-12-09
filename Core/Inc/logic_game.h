@@ -12,5 +12,6 @@
 
 
 void FSM_game_control();
+void logic_game();
 
 #endif /* INC_LOGIC_GAME_H_ */

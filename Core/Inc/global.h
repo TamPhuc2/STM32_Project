@@ -30,7 +30,7 @@ extern int status_temp;
 //define timer role
 #define TIMER_BLINK				10
 #define TIMER_LCD_ANIMATION     11  // [NEW] Timer ID cho hiệu ứng chạy chữ
-
+#define TEST_TIMER_ID			9
 
 //define cycle for timer interrupt
 #define BLINK_CYCLE				250

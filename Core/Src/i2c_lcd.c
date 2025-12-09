@@ -150,16 +150,6 @@ void lcd_clear_display(void)
     HAL_Delay(2);
 }
 
-//void lcd_goto_XY(int row, int col)
-//{
-//    uint8_t address;
-//
-//    if (row == 0) address = 0x80 + col;
-//    else address = 0xC0 + col;
-//
-//    lcd_send_cmd(address);
-//}
-
 void lcd_goto_XY (int row, int col)
 {
     uint8_t pos_Addr;

@@ -111,34 +111,19 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_ADC_Start(&hadc1);
 
-
-
   display_init();
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
 
   lcd_init();
-   HAL_Delay(100);
-
-
-   lcd_clear_display();
-   lcd_goto_XY(0, 0);
-   lcd_send_string("LCD CONNECTED!");
-
-   lcd_goto_XY(1, 0);
-   lcd_send_string("Addr: 0x27 READY");
-
-   lcd_goto_XY(2, 14);
-   lcd_send_string("LINE2");
-
-   lcd_goto_XY(3, 0);
-   lcd_send_string("LINE3");
-
-   HAL_Delay(5000); // Để bạn nhìn rõ LCD có hoạt động
-   lcd_clear_display();
+  HAL_Delay(100);
 
   setTimer(0, 1000);
   setTimer(1, 100);
   setTimer(2, 100);
+  setTimer(20, 100);
+  int case_display = 0;
+  lcd_clear_display();
+//  display_welcome_screen();
 
 
   /* USER CODE END 2 */
@@ -149,14 +134,82 @@ int main(void)
   {
 	  //led blinky
 	  if(isTimerExpired(0) == 1){
-		  //HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-		  HAL_GPIO_TogglePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin);
+		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  setTimer(0, 1000);
 	  }
 
-	  if(isTimerExpired(1) == 1){
-		  FSM_game_control();
-		  setTimer(1, 10);
+//	  if(isTimerExpired(1) == 1){
+//		  FSM_game_control();
+//		  setTimer(1, 10);
+//	  }
+
+	  if(isTimerExpired(20) == 1){
+		  case_display++;
+		  switch (case_display){
+		  case 0:
+			  lcd_clear_display();
+			  display_welcome_screen();
+			  setTimer(20, 2000);
+			  break;
+		  case 1:
+			  lcd_clear_display();
+			  display_announcement(START);
+			  setTimer(20, 2000);
+			  break;
+		  case 2:
+			  lcd_clear_display();
+			  display_announcement(BIGWIN);
+			  setTimer(20, 2000);
+			  break;
+		  case 3:
+			  lcd_clear_display();
+			  display_announcement(BETTER_LUCK_NEXT_TIME);
+			  setTimer(20, 2000);
+			  break;
+		  case 4:
+			  lcd_clear_display();
+			  display_announcement(P1_LOSE);
+			  setTimer(20, 2000);
+			  break;
+		  case 5:
+			  lcd_clear_display();
+			  display_announcement(P2_LOSE);
+			  setTimer(20, 2000);
+			  break;
+		  case 6:
+			  lcd_clear_display();
+			  display_announcement(TIE);
+			  setTimer(20, 2000);
+			  break;
+		  case 7:
+			  lcd_clear_display();
+			  display_announcement(START);
+			  setTimer(20, 2000);
+			  break;
+		  case 8:
+			  lcd_clear_display();
+			  display_playing_mode(0);
+			  setTimer(20, 1500);
+			  break;
+		  case 9:
+			  lcd_clear_display();
+			  display_playing_mode(1);
+			  setTimer(20, 1500);
+			  break;
+		  case 10:
+			  lcd_clear_display();
+			  display_playing_mode(2);
+			  setTimer(20, 1500);
+			  break;
+		  case 11:
+			  lcd_clear_display();
+			  display_playing_mode(3);
+			  setTimer(20, 1500);
+			  break;
+		  default:
+			  case_display = 0;
+			  break;
+		  }
 	  }
 
 
