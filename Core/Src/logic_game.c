@@ -12,157 +12,80 @@
 #include "random_gen.h"
 #include "software_timer.h"
 
-int spin_flag = 0;
-void FSM_game_control(){
-	switch(status){
-	case INIT:
-		//display mode
-		lcd_clear_display();
-		//display_welcome_screen();
-		led_buffer[0] = 9;
-		led_buffer[1] = 9;
-		led_buffer[2] = 9;
-		display_3_digit();
-
-		//next state
-		if(isButtonPressed(0) == 1){
-			display7SEG_mode_single_spin();
-			status = MODE_SINGLE_SPIN;
-		}
-		break;
-	case MODE_SINGLE_SPIN:
-		//set spin flag, speed
-		if(isButtonPressed(1) == 1 && spin_flag != 1 && status == MODE_SINGLE_SPIN){
-			spin_flag = 1;
-			setTimer(2, 3000);//spin in 3 seconds
-			setTimer(3, 100);//default speed
-		}
-		//spinning
-		if(spin_flag == 1){
-			spinning_mode_single();
-		}
-		//time out -> display 7SEG
-		if(isTimerExpired(2)== 1){
-			spin_flag = 0;
-			display_3_digit();
-		}
-		//next state
-		if(isButtonPressed(0) == 1){
-			led_buffer[0] = 0;
-			led_buffer[1] = 0;
-			led_buffer[2] = 2;
-			display_3_digit();
-			spin_flag = 0;
-			status = MODE_HOLD_SPIN;
-		}
-		break;
-	case MODE_HOLD_SPIN:
-		//spin
-		if(isButtonPressed(1) == 1){
-			led_buffer[0] = random_digit();
-			led_buffer[1] = random_digit();
-			led_buffer[2] = random_digit();
-			display_3_digit();
-		}
-		//next state
-		if(isButtonPressed(0) == 1){
-			led_buffer[0] = 0;
-			led_buffer[1] = 0;
-			led_buffer[2] = 3;
-			display_3_digit();
-			status = MODE_ACCEL_DECEL_SPIN;
-		}
-		break;
-	case MODE_ACCEL_DECEL_SPIN:
-
-		//spin
-		if(isButtonPressed(1) == 1){
-			led_buffer[0] = random_digit();
-			led_buffer[1] = random_digit();
-			led_buffer[2] = random_digit();
-			display_3_digit();
-		}
-		//next state
-		if(isButtonPressed(0) == 1){
-			led_buffer[0] = 0;
-			led_buffer[1] = 0;
-			led_buffer[2] = 4;
-			display_3_digit();
-			status = MODE_TWO_PLAYERS;
-
-		}
-		break;
-	case MODE_TWO_PLAYERS:
-		//display current mode
-
-		//spin
-		if(isButtonPressed(1) == 1){
-			led_buffer[0] = random_digit();
-			led_buffer[1] = random_digit();
-			led_buffer[2] = random_digit();
-			display_3_digit();
-		}
-		//next state
-		if(isButtonPressed(0) == 1){
-			led_buffer[0] = 0;
-			led_buffer[1] = 0;
-			led_buffer[2] = 0;
-			status = INIT;
-		}
-		break;
-	default:
-		status = INIT;
-		break;
-
-	}
-}
-
 void logic_game(){
 	switch (status){
 	case INIT:
-		update_led_buffer(ERROR, ERROR, ERROR);
+		update_led_buffer(9, 9, 9);
 		display_3_digit();
 		display_welcome_screen();
-		if (isButtonPressed(1) == 1){
+		if(isButtonPressed(3) == 1){
+			lcd_clear_display();
 			status = LIST_MODES;
-			setButtonFlag(0);
-			setButtonFlag(1);
+			setButtonFlag(3);
 		}
-		break;
-	case LIST_MODES:
-		display_list_modes(status);
 		break;
 	case MODE_SINGLE_SPIN:
-		mode_single_spin();
-		if (isButtonPressed(0) == 1){
+		//open list mode
+		if(isButtonPressed(3) == 1)
+		{
+			lcd_clear_display();
 			status = LIST_MODES;
-			setButtonFlag(0);
+			setButtonFlag(3);
 			break;
 		}
+		//play
+		mode_single_spin();
+
 		break;
 	case MODE_HOLD_SPIN:
-		mode_hold_spin();
-		if (isButtonPressed(0) == 1){
+		//open list mode
+		if(isButtonPressed(3) == 1)
+		{
+			lcd_clear_display();
 			status = LIST_MODES;
-			setButtonFlag(0);
+			setButtonFlag(3);
 			break;
 		}
+		//play
+		mode_hold_spin();
 		break;
 	case MODE_ACCEL_DECEL_SPIN:
-		mode_accel_decel_spin();
-		if (isButtonPressed(0) == 1){
+		//open list mode
+		if(isButtonPressed(3) == 1)
+		{
+			lcd_clear_display();
 			status = LIST_MODES;
-			setButtonFlag(0);
+			setButtonFlag(3);
 			break;
 		}
+		//play
+		mode_accel_decel_spin();
 		break;
 	case MODE_TWO_PLAYERS:
-		mode_two_players();
-		if (isButtonPressed(0) == 1){
+		//open list mode
+		if(isButtonPressed(3) == 1)
+		{
+			lcd_clear_display();
 			status = LIST_MODES;
-			setButtonFlag(0);
+			setButtonFlag(3);
 			break;
 		}
+		//play
+		if(isTimerExpired(6)) mode_two_players();
+		break;
+	case HOME_SCREEN:
+		//open list mode
+		display_welcome_screen();
+		if(isButtonPressed(3) == 1)
+		{
+			lcd_clear_display();
+			status = LIST_MODES;
+			choose_mode = INIT;
+			setButtonFlag(3);
+			break;
+		}
+	case LIST_MODES:
+		display_list_modes();
 		break;
 	}
 }

@@ -13,7 +13,7 @@
 
 #define NORMAL_STATE SET
 #define PRESSED_STATE RESET
-#define NUM_BUTTONS 4
+#define NUM_BUTTONS 10
 
 // STRUCT
 
@@ -27,6 +27,7 @@ typedef struct {
 
     int flag_pressed;
     int flag_long_pressed;
+    int flag_released; // new attribute
 } Button_t;
 
 // API
@@ -38,6 +39,7 @@ void subKeyProcess(int index);
 void setButtonFlag(int index);
 int isButtonPressed(int index);
 int isButtonLongPressed(int index);
+int isButtonReleased(int index);
 
 
 

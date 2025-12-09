@@ -13,7 +13,10 @@ C_SRCS += \
 ../Core/Src/i2c_lcd.c \
 ../Core/Src/logic_game.c \
 ../Core/Src/main.c \
+../Core/Src/mode_accel_decel_spin.c \
+../Core/Src/mode_hold_spin.c \
 ../Core/Src/mode_single_spin.c \
+../Core/Src/mode_two_player.c \
 ../Core/Src/random_gen.c \
 ../Core/Src/software_timer.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
@@ -31,7 +34,10 @@ OBJS += \
 ./Core/Src/i2c_lcd.o \
 ./Core/Src/logic_game.o \
 ./Core/Src/main.o \
+./Core/Src/mode_accel_decel_spin.o \
+./Core/Src/mode_hold_spin.o \
 ./Core/Src/mode_single_spin.o \
+./Core/Src/mode_two_player.o \
 ./Core/Src/random_gen.o \
 ./Core/Src/software_timer.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
@@ -49,7 +55,10 @@ C_DEPS += \
 ./Core/Src/i2c_lcd.d \
 ./Core/Src/logic_game.d \
 ./Core/Src/main.d \
+./Core/Src/mode_accel_decel_spin.d \
+./Core/Src/mode_hold_spin.d \
 ./Core/Src/mode_single_spin.d \
+./Core/Src/mode_two_player.d \
 ./Core/Src/random_gen.d \
 ./Core/Src/software_timer.d \
 ./Core/Src/stm32f1xx_hal_msp.d \

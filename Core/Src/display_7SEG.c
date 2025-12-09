@@ -9,7 +9,7 @@
 #include "display_7SEG.h"
 
 int index_led = 0;
-int led_buffer[MAX_LED] = {1, 2, 3};
+//int led_buffer[MAX_LED] = {1, 2, 3};
 
 const uint8_t SEG_CC[10] = {
     0x3F, // 0: a b c d e f
@@ -53,6 +53,12 @@ void HC595_Send3_GPIO(uint8_t b3, uint8_t b2, uint8_t b1) {
 
 uint8_t invert_byte(uint8_t x) {
     return (~x) & 0x7F; // chỉ 7 bit a..g, giữ DP = 0 nếu cần
+}
+
+void update_led_buffer(int num1, int num2, int num3){
+	led_buffer[0] = num1;
+	led_buffer[1] = num2;
+	led_buffer[2] = num3;
 }
 
 void display_3_digit(void) {

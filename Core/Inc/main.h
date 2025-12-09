@@ -78,6 +78,10 @@ void Error_Handler(void);
 #define mode_button_GPIO_Port GPIOA
 #define spin_button_Pin GPIO_PIN_10
 #define spin_button_GPIO_Port GPIOA
+#define select_button_Pin GPIO_PIN_11
+#define select_button_GPIO_Port GPIOA
+#define list_button_Pin GPIO_PIN_12
+#define list_button_GPIO_Port GPIOA
 #define SCL_Pin GPIO_PIN_6
 #define SCL_GPIO_Port GPIOB
 #define SDA_Pin GPIO_PIN_7

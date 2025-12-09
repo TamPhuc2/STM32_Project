@@ -15,6 +15,9 @@
 #include "random_gen.h"
 #include "software_timer.h"
 #include "mode_single_spin.h"
+#include "mode_accel_decel_spin.h"
+#include "mode_hold_spin.h"
+#include "mode_two_players.h"
 
 
 #define INIT					0
@@ -22,27 +25,24 @@
 #define MODE_HOLD_SPIN			2
 #define MODE_ACCEL_DECEL_SPIN	3
 #define MODE_TWO_PLAYERS		4
+#define LIST_MODES				5
+#define WELCOME_SCREEN			6
+#define HOME_SCREEN				7
+
+#define ERROR					99
+#define MAX_LED 	3
 
 extern int status;
 extern int status_temp;
+extern int choose_mode;
 
+extern int led_buffer[MAX_LED];
+extern int last_time;
+extern int spin_flag;
 
-//define timer role
-#define TIMER_BLINK				10
-#define TIMER_LCD_ANIMATION     11  // [NEW] Timer ID cho hiệu ứng chạy chữ
-#define TEST_TIMER_ID			9
+#define SPIN	2
+#define TIMER_WAIT_RESULT 8
 
-//define cycle for timer interrupt
-#define BLINK_CYCLE				250
-#define LCD_UPDATE_CYCLE        200 // [NEW] Cập nhật LCD mỗi 200ms (5 khung hình/giây)
-
-//define announcement
-#define START					20
-#define BIGWIN					21
-#define BETTER_LUCK_NEXT_TIME	22
-#define P1_LOSE					23
-#define P2_LOSE					24
-#define TIE						25
 
 
 //setTimer(2, 3000);//spin in 3 seconds

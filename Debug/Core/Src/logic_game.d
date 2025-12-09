@@ -30,8 +30,10 @@ Core/Src/logic_game.o: ../Core/Src/logic_game.c ../Core/Inc/global.h \
  ../Core/Inc/display_7SEG.h ../Core/Inc/global.h \
  ../Core/Inc/display_LCD.h ../Core/Inc/i2c_lcd.h ../Core/Inc/random_gen.h \
  ../Core/Inc/software_timer.h ../Core/Inc/mode_single_spin.h \
- ../Core/Inc/logic_game.h ../Core/Inc/display_7SEG.h ../Core/Inc/button.h \
- ../Core/Inc/random_gen.h ../Core/Inc/software_timer.h
+ ../Core/Inc/mode_accel_decel_spin.h ../Core/Inc/mode_hold_spin.h \
+ ../Core/Inc/mode_two_players.h ../Core/Inc/logic_game.h \
+ ../Core/Inc/display_7SEG.h ../Core/Inc/button.h ../Core/Inc/random_gen.h \
+ ../Core/Inc/software_timer.h
 
 ../Core/Inc/global.h:
 
@@ -106,6 +108,12 @@ Core/Src/logic_game.o: ../Core/Src/logic_game.c ../Core/Inc/global.h \
 ../Core/Inc/software_timer.h:
 
 ../Core/Inc/mode_single_spin.h:
+
+../Core/Inc/mode_accel_decel_spin.h:
+
+../Core/Inc/mode_hold_spin.h:
+
+../Core/Inc/mode_two_players.h:
 
 ../Core/Inc/logic_game.h:
 

@@ -117,14 +117,20 @@ int main(void)
   lcd_init();
   HAL_Delay(100);
 
-  setTimer(0, 1000);
+  setTimer(0, 100);
   setTimer(1, 100);
   setTimer(2, 100);
   setTimer(20, 100);
-  int case_display = 0;
+  //int case_display = 0;
   lcd_clear_display();
-//  display_welcome_screen();
+  lcd_goto_XY(0, 5);
+  lcd_send_string("Welcome To");
 
+  lcd_goto_XY(2, 3);
+  lcd_send_string("Lucky Spin Game");
+
+  HAL_Delay(1000);
+  lcd_clear_display();
 
   /* USER CODE END 2 */
 
@@ -138,81 +144,10 @@ int main(void)
 		  setTimer(0, 1000);
 	  }
 
-//	  if(isTimerExpired(1) == 1){
-//		  FSM_game_control();
-//		  setTimer(1, 10);
-//	  }
-
-	  if(isTimerExpired(20) == 1){
-		  case_display++;
-		  switch (case_display){
-		  case 0:
-			  lcd_clear_display();
-			  display_welcome_screen();
-			  setTimer(20, 2000);
-			  break;
-		  case 1:
-			  lcd_clear_display();
-			  display_announcement(START);
-			  setTimer(20, 2000);
-			  break;
-		  case 2:
-			  lcd_clear_display();
-			  display_announcement(BIGWIN);
-			  setTimer(20, 2000);
-			  break;
-		  case 3:
-			  lcd_clear_display();
-			  display_announcement(BETTER_LUCK_NEXT_TIME);
-			  setTimer(20, 2000);
-			  break;
-		  case 4:
-			  lcd_clear_display();
-			  display_announcement(P1_LOSE);
-			  setTimer(20, 2000);
-			  break;
-		  case 5:
-			  lcd_clear_display();
-			  display_announcement(P2_LOSE);
-			  setTimer(20, 2000);
-			  break;
-		  case 6:
-			  lcd_clear_display();
-			  display_announcement(TIE);
-			  setTimer(20, 2000);
-			  break;
-		  case 7:
-			  lcd_clear_display();
-			  display_announcement(START);
-			  setTimer(20, 2000);
-			  break;
-		  case 8:
-			  lcd_clear_display();
-			  display_playing_mode(0);
-			  setTimer(20, 1500);
-			  break;
-		  case 9:
-			  lcd_clear_display();
-			  display_playing_mode(1);
-			  setTimer(20, 1500);
-			  break;
-		  case 10:
-			  lcd_clear_display();
-			  display_playing_mode(2);
-			  setTimer(20, 1500);
-			  break;
-		  case 11:
-			  lcd_clear_display();
-			  display_playing_mode(3);
-			  setTimer(20, 1500);
-			  break;
-		  default:
-			  case_display = 0;
-			  break;
-		  }
+	  if(isTimerExpired(1) == 1){
+		  logic_game();
+		  setTimer(1, 10);
 	  }
-
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -435,8 +370,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SDO_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : mode_button_Pin spin_button_Pin */
-  GPIO_InitStruct.Pin = mode_button_Pin|spin_button_Pin;
+  /*Configure GPIO pins : mode_button_Pin spin_button_Pin select_button_Pin list_button_Pin */
+  GPIO_InitStruct.Pin = mode_button_Pin|spin_button_Pin|select_button_Pin|list_button_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);

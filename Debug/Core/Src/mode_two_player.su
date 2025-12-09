@@ -1,0 +1,3 @@
+mode_two_player.c:22:5:check_result_two_players	4	static
+mode_two_player.c:72:6:mode_two_players	16	static
+mode_two_player.c:159:6:display7SEG_mode_two_players	8	static
