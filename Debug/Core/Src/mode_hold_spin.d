@@ -33,7 +33,8 @@ Core/Src/mode_hold_spin.o: ../Core/Src/mode_hold_spin.c \
  ../Core/Inc/mode_single_spin.h ../Core/Inc/mode_accel_decel_spin.h \
  ../Core/Inc/mode_hold_spin.h ../Core/Inc/mode_two_players.h \
  ../Core/Inc/software_timer.h ../Core/Inc/display_7SEG.h \
- ../Core/Inc/display_LCD.h ../Core/Inc/random_gen.h
+ ../Core/Inc/display_LCD.h ../Core/Inc/random_gen.h \
+ ../Core/Inc/logic_game.h
 
 ../Core/Inc/mode_hold_spin.h:
 
@@ -126,3 +127,5 @@ Core/Src/mode_hold_spin.o: ../Core/Src/mode_hold_spin.c \
 ../Core/Inc/display_LCD.h:
 
 ../Core/Inc/random_gen.h:
+
+../Core/Inc/logic_game.h:

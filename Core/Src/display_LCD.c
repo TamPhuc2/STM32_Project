@@ -15,8 +15,6 @@ int pos_right = RUN_COL_START; // Hàng 2 chạy từ trái → phải
 
 int currmark = 0;
 
-void display_mark(int);
-void clear_mark(int);
 
 void display_init() {
     lcd_init();
@@ -25,7 +23,7 @@ void display_init() {
 
 }
 
-/* ========== 1. Welcome Screen ========== */
+/* ========== Welcome Screen ========== */
 void display_welcome_screen() {
     lcd_goto_XY(0, 3);
     lcd_send_string("Lucky Spin Game");
@@ -33,7 +31,7 @@ void display_welcome_screen() {
     display_list_button();
 }
 
-/* ========== 2. Announcement ========== */
+/* ========== Announcement ========== */
 void display_announcement(int announce_num) {
 	lcd_clear_display();
     switch (announce_num){
@@ -82,65 +80,9 @@ void display_announcement(int announce_num) {
     }
 }
 
-/* ========== 3. Playing Mode Display (1 HÀM DUY NHẤT) ========== */
-/*
- * Hàm này được gọi bởi FSM mỗi khi cần update LCD.
- * Nhấp nháy “>” được quyết định bởi blinkState.
- * Dòng nào hiện “>” thì do mode mình đang trỏ vào quyết định.
- */
-void display_mark(int mode){
-	if (currmark == 1){
-		lcd_goto_XY(mode, 0);
-		lcd_send_string(">");
-	} else {
-		lcd_goto_XY(mode, 0);
-		lcd_send_string(" ");
-	}
-}
-
-void clear_mark(int mode){
-	lcd_goto_XY(mode, 0);
-	lcd_send_string(" ");
-}
-
-// mode value from 0 to 3
-void display_playing_mode(int mode) {
-
-	clear_mark(mode);
-
-	switch (mode){
-	case 0:
-		lcd_goto_XY(mode, 1);
-		lcd_send_string("1P-Accel decel spin");
-		break;
-	case 1:
-		lcd_goto_XY(mode, 1);
-		lcd_send_string("1P-Hold spin");
-		break;
-	case 2:
-		lcd_goto_XY(mode, 1);
-		lcd_send_string("1P-Single spin");
-		break;
-	case 3:
-		lcd_goto_XY(mode, 1);
-		lcd_send_string("2P-Two players");
-		break;
-	default: break;
-	}
 
 
-	display_mark(mode);
-
-	if(isTimerExpired(TIMER_BLINK)){
-		currmark = !currmark;
-		setTimer(TIMER_BLINK, BLINK_CYCLE);
-	}
-
-}
-
-
-
-/* ========== 4. Hàm hiển thị màn hình khi trò chơi đang chạy ========== */
+/* ========== Hàm hiển thị màn hình khi trò chơi đang chạy ========== */
 void display_while_playing() {
 	if (!isTimerExpired(TIMER_LCD_ANIMATION)) {
 	    return;
@@ -347,7 +289,7 @@ void display_list_modes(){
 			lcd_goto_XY(1, 5);
 			lcd_send_string("Two Players");
 
-			setTimer(6, 1000);
+			setTimer(WAIT_SCREEN_2P, 1000);
 			setButtonFlag(2);
 			break;
 		}
@@ -373,6 +315,8 @@ void display_list_modes(){
 
 
 		if(isButtonPressed(2) == 1){
+			update_led_buffer(9, 9, 9);
+			display_3_digit();
 			lcd_clear_display();
 			status = HOME_SCREEN;
 			choose_mode = HOME_SCREEN;

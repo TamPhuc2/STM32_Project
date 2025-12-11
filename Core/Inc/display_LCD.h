@@ -25,20 +25,12 @@
 #define P2_LOSE					24
 #define TIE						25
 
-//define timer role
-#define TIMER_BLINK				10
-#define TIMER_LCD_ANIMATION     11  // [NEW] Timer ID cho hiệu ứng chạy chữ
-//#define TEST_TIMER_ID			9
 
-//define cycle for timer interrupt
-#define BLINK_CYCLE				250
-#define LCD_UPDATE_CYCLE        200 // [NEW] Cập nhật LCD mỗi 200ms (5 khung hình/giây)
 
 
 void display_init();
 void display_welcome_screen();
 void display_announcement(int);
-void display_playing_mode(int);
 void display_while_playing();
 void display_list_button();
 void reset_animation_pos();

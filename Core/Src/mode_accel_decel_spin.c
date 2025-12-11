@@ -13,9 +13,9 @@
 #include "display_7SEG.h"
 #include "display_LCD.h"
 #include "random_gen.h"
+#include "logic_game.h"
 
-#define TIMER_SPIN_ID  5
-#define TIMER_ACCEL_ID 6
+
 
 int temp_accel_decel_spin = 0;
 int speed = 500;
@@ -76,6 +76,10 @@ void mode_accel_decel_spin(){
 				speed += speed_step;
 			}
 			else{
+                // --- INJECT TEST DATA ---
+                apply_test_result_single();
+                // ------------------------
+
 				//stop
 				if(check_result_single_player()){
 					display_announcement(BIGWIN);

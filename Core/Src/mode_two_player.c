@@ -14,6 +14,8 @@
 #include "display_LCD.h"
 #include "display_7SEG.h"
 #include "random_gen.h"
+#include "logic_game.h"
+
 // include lcd
 
 int first_player_buffer[5] = {0, 0, 0, 0, 0};
@@ -81,6 +83,12 @@ void mode_two_players(){
 			waiting_result = 0;
 			index_player = 1;
 			current_displayed_index = 0;
+
+			// Tăng index test sau khi đã hoàn thành cả 2 lượt chơi và xem kết quả
+			#if TEST_MODE
+			    test_idx_multi++;
+			    if (test_idx_multi >= 3) test_idx_multi = 0; // 0->1->2->0
+			#endif
 		}
 		else return;
 	}
@@ -114,6 +122,16 @@ void mode_two_players(){
 		}
 		else{
 			spin_flag = 0;
+
+			// --- INJECT TEST DATA CHO 2 PLAYERS ---
+            #if TEST_MODE
+                int p_idx = (index_player == 1) ? 0 : 1; // 0 là P1, 1 là P2
+                led_buffer[0] = test_multi_data[test_idx_multi][p_idx][0];
+                led_buffer[1] = test_multi_data[test_idx_multi][p_idx][1];
+                led_buffer[2] = test_multi_data[test_idx_multi][p_idx][2];
+                display_3_digit(); // Hiện số đã force
+            #endif
+            // --------------------------------------
 
 			if(index_player == 1){
 				first_player_buffer[0] = led_buffer[0];

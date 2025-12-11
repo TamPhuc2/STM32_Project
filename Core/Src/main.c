@@ -117,11 +117,10 @@ int main(void)
   lcd_init();
   HAL_Delay(100);
 
-  setTimer(0, 100);
-  setTimer(1, 100);
-  setTimer(2, 100);
-  setTimer(20, 100);
-  //int case_display = 0;
+  setTimer(TIMER_LED_BLINKY, 100);
+  setTimer(TIMER_LOGIC_GAME, 100);
+
+
   lcd_clear_display();
   lcd_goto_XY(0, 5);
   lcd_send_string("Welcome To");
@@ -139,14 +138,14 @@ int main(void)
   while (1)
   {
 	  //led blinky
-	  if(isTimerExpired(0) == 1){
+	  if(isTimerExpired(TIMER_LED_BLINKY) == 1){
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-		  setTimer(0, 1000);
+		  setTimer(TIMER_LED_BLINKY, 1000);
 	  }
 
-	  if(isTimerExpired(1) == 1){
+	  if(isTimerExpired(TIMER_LOGIC_GAME) == 1){
 		  logic_game();
-		  setTimer(1, 10);
+		  setTimer(TIMER_LOGIC_GAME, 10);
 	  }
     /* USER CODE END WHILE */
 

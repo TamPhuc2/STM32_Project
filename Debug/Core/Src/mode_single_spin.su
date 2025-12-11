@@ -1,3 +1,2 @@
 mode_single_spin.c:17:6:mode_single_spin	16	static
-mode_single_spin.c:55:6:display7SEG_mode_single_spin	8	static
-mode_single_spin.c:63:6:spinning_mode_single	8	static
+mode_single_spin.c:60:6:display7SEG_mode_single_spin	8	static

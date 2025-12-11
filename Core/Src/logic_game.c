@@ -12,6 +12,37 @@
 #include "random_gen.h"
 #include "software_timer.h"
 
+// TEST CASE
+#if TEST_MODE
+    int test_single_data[2][3] = {
+        {1, 2, 3}, // loss
+        {7, 7, 7}  // win
+    };
+    int test_idx_single = 0;
+
+    //[Round][Player][Digit]
+    int test_multi_data[3][2][3] = {
+        {{7, 7, 7}, {1, 2, 3}}, // Case 0: P1 Win
+        {{1, 2, 3}, {7, 7, 7}}, // Case 1: P2 Win
+        {{5, 5, 5}, {5, 5, 5}}  // Case 2: Draw
+    };
+    int test_idx_multi = 0;
+#endif
+
+// --- APLLY TEST ---
+void apply_test_result_single() {
+    #if TEST_MODE
+        led_buffer[0] = test_single_data[test_idx_single][0];
+        led_buffer[1] = test_single_data[test_idx_single][1];
+        led_buffer[2] = test_single_data[test_idx_single][2];
+
+        display_3_digit();
+        // 0 -> 1 -> 0
+        test_idx_single++;
+        if (test_idx_single >= 2) test_idx_single = 0;
+    #endif
+}
+
 void logic_game(){
 	switch (status){
 	case INIT:
@@ -71,13 +102,15 @@ void logic_game(){
 			break;
 		}
 		//play
-		if(isTimerExpired(6)) mode_two_players();
+		if(isTimerExpired(WAIT_SCREEN_2P)) mode_two_players();
 		break;
 	case HOME_SCREEN:
 		//open list mode
 		display_welcome_screen();
 		if(isButtonPressed(3) == 1)
 		{
+			update_led_buffer(9, 9, 9);
+			display_3_digit();
 			lcd_clear_display();
 			status = LIST_MODES;
 			choose_mode = INIT;

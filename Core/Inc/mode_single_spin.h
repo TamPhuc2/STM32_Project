@@ -12,7 +12,7 @@
 #include "global.h"
 
 void display7SEG_mode_single_spin();
-void spinning_mode_single();
+//void spinning_mode_single();
 
 int check_result_single_player();
 void mode_single_spin();

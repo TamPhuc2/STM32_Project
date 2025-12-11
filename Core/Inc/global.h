@@ -40,12 +40,27 @@ extern int led_buffer[MAX_LED];
 extern int last_time;
 extern int spin_flag;
 
-#define SPIN	2
-#define TIMER_WAIT_RESULT 8
 
 
 
-//setTimer(2, 3000);//spin in 3 seconds
-//setTimer(3, 100);//default speed
+//TIMER INDEX
+//define timer role
+#define TIMER_LED_BLINKY		0	// 1000ms
+#define TIMER_LOGIC_GAME		1	// 10ms
+#define SPIN					2	// 100ms - display speed 7SEG normal case
+#define TIMER_SPIN_ID  			3	// speed ms - display speed 7SEG accel decel case
+#define TIMER_ACCEL_ID 			4	// 100ms - duration change speed
+#define TIMER_WAIT_RESULT 		5 	// 2000ms - wait time to display result in mode 2 players
+#define TIMER_LCD_ANIMATION     6  // animation in spinning
+#define WAIT_SCREEN_2P			7	// 1000ms - wait time to display "Two Players"
+
+#define TIMER_BLINK				9
+
+
+
+//define cycle for timer interrupt
+#define BLINK_CYCLE				250
+#define LCD_UPDATE_CYCLE        200 // Cập nhật LCD mỗi 200ms (5 khung hình/giây)
+
 
 #endif /* INC_GLOBAL_H_ */

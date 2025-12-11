@@ -12,7 +12,7 @@
 #include "display_7SEG.h"
 #include "display_LCD.h"
 #include "random_gen.h"
-
+#include "logic_game.h"
 
 void mode_single_spin(){
 	if(isButtonPressed(1) == 1){
@@ -37,6 +37,11 @@ void mode_single_spin(){
 			}
 			else {
 				spin_flag = 0;
+
+                // --- INJECT TEST DATA ---
+                apply_test_result_single();
+                // ------------------------
+
 				if(check_result_single_player()){
 					display_announcement(BIGWIN);
 					display_list_button();
@@ -60,12 +65,4 @@ void display7SEG_mode_single_spin(){
 
 }
 
-void spinning_mode_single(){
-	led_buffer[0] = random_digit();
-	led_buffer[1] = random_digit();
-	led_buffer[2] = random_digit();
-	if(isTimerExpired(3) == 1){
-		display_3_digit();
-		setTimer(3, 120);
-	}
-}
+

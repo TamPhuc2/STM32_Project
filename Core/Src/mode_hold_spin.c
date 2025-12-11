@@ -13,7 +13,7 @@
 #include "display_7SEG.h"
 #include "display_LCD.h"
 #include "random_gen.h"
-
+#include "logic_game.h"
 
 void mode_hold_spin(){
 	if(isButtonPressed(1) == 1){
@@ -45,6 +45,10 @@ void mode_hold_spin(){
 	//stop spin
 	if(isButtonReleased(1) == 1  && spin_flag == 1){
 		spin_flag = 0;
+
+        // --- INJECT TEST DATA ---
+        apply_test_result_single();
+        // ------------------------
 
 		if(check_result_single_player()){
 			display_announcement(BIGWIN);

@@ -1,2 +1,2 @@
 mode_accel_decel_spin.c:25:6:mode_accel_decel_spin	16	static
-mode_accel_decel_spin.c:100:6:display7SEG_mode_accel_decel_spin	8	static
+mode_accel_decel_spin.c:104:6:display7SEG_mode_accel_decel_spin	8	static
