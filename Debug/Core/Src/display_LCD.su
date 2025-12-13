@@ -1,0 +1,8 @@
+display_LCD.c:19:6:display_init	8	static
+display_LCD.c:27:6:display_welcome_screen	8	static
+display_LCD.c:35:6:display_announcement	16	static
+display_LCD.c:86:6:display_while_playing	80	static
+display_LCD.c:137:6:reset_animation_pos	4	static
+display_LCD.c:142:6:display_list_modes	8	static
+display_LCD.c:346:6:display_mode_two_players	16	static
+display_LCD.c:359:6:display_list_button	8	static
