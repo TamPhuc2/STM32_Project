@@ -30,6 +30,7 @@
 #include "global.h"
 #include "display_LCD.h"
 #include "i2c_lcd.h"
+#include "led_anounce.h"
 #include "stm32f1xx_hal.h"
 
 
@@ -91,6 +92,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  Led_Announce_Init();
   Button_Init();
   HAL_Delay(100);
   /* USER CODE END Init */
@@ -137,6 +139,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  Led_Announce_Process();
 	  //led blinky
 	  if(isTimerExpired(TIMER_LED_BLINKY) == 1){
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
@@ -145,6 +148,7 @@ int main(void)
 
 	  if(isTimerExpired(TIMER_LOGIC_GAME) == 1){
 		  logic_game();
+		  Led_Announce_Process();
 		  setTimer(TIMER_LOGIC_GAME, 10);
 	  }
     /* USER CODE END WHILE */
@@ -344,7 +348,7 @@ static void MX_GPIO_Init(void)
                           |LOAD_Pin|SDK_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SDO_GPIO_Port, SDO_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, SDO_Pin|LED_WIN_Pin|LED_LOSE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : LED_RED_1_Pin */
   GPIO_InitStruct.Pin = LED_RED_1_Pin;
@@ -362,12 +366,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : SDO_Pin */
-  GPIO_InitStruct.Pin = SDO_Pin;
+  /*Configure GPIO pins : SDO_Pin LED_WIN_Pin LED_LOSE_Pin */
+  GPIO_InitStruct.Pin = SDO_Pin|LED_WIN_Pin|LED_LOSE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(SDO_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : mode_button_Pin spin_button_Pin select_button_Pin list_button_Pin */
   GPIO_InitStruct.Pin = mode_button_Pin|spin_button_Pin|select_button_Pin|list_button_Pin;

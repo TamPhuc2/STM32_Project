@@ -13,7 +13,8 @@
 #include "display_7SEG.h"
 #include "display_LCD.h"
 #include "random_gen.h"
-#include "logic_game.h"
+#include "led_anounce.h"
+//#include "logic_game.h"
 
 
 
@@ -83,11 +84,13 @@ void mode_accel_decel_spin(){
 				//stop
 				if(check_result_single_player()){
 					display_announcement(BIGWIN);
+					Led_BlinkGreen();
 					display_list_button();
 				}
 
 				else{
 					display_announcement(BETTER_LUCK_NEXT_TIME);
+					Led_BlinkRed();
 					display_list_button();
 				}
 

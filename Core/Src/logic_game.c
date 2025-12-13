@@ -15,16 +15,16 @@
 // TEST CASE
 #if TEST_MODE
     int test_single_data[2][3] = {
-        {1, 2, 3}, // loss
-        {7, 7, 7}  // win
+        {7, 8, 9}, // loss
+        {9, 9, 9}  // win
     };
     int test_idx_single = 0;
 
     //[Round][Player][Digit]
     int test_multi_data[3][2][3] = {
-        {{7, 7, 7}, {1, 2, 3}}, // Case 0: P1 Win
-        {{1, 2, 3}, {7, 7, 7}}, // Case 1: P2 Win
-        {{5, 5, 5}, {5, 5, 5}}  // Case 2: Draw
+        {{2, 3, 4}, {1, 2, 3}}, // Case 0: P1 Win
+        {{1, 2, 3}, {6, 7, 8}}, // Case 1: P2 Win
+        {{6, 6, 6}, {6, 6, 6}}  // Case 2: Draw
     };
     int test_idx_multi = 0;
 #endif

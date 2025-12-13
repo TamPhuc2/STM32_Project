@@ -11,7 +11,7 @@
 #include "global.h"
 
 
-#define TEST_MODE 1  // 1: TEST, 0 NORMAL
+#define TEST_MODE 1 // 1: TEST, 0 NORMAL
 
 //declare test variable
 #if TEST_MODE

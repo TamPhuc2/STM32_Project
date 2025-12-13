@@ -18,6 +18,7 @@
 #include "mode_accel_decel_spin.h"
 #include "mode_hold_spin.h"
 #include "mode_two_players.h"
+#include "logic_game.h"
 
 
 #define INIT					0
@@ -53,7 +54,7 @@ extern int spin_flag;
 #define TIMER_WAIT_RESULT 		5 	// 2000ms - wait time to display result in mode 2 players
 #define TIMER_LCD_ANIMATION     6  // animation in spinning
 #define WAIT_SCREEN_2P			7	// 1000ms - wait time to display "Two Players"
-
+#define LED_TIMER_ID 			8
 #define TIMER_BLINK				9
 
 
@@ -62,5 +63,8 @@ extern int spin_flag;
 #define BLINK_CYCLE				250
 #define LCD_UPDATE_CYCLE        200 // Cập nhật LCD mỗi 200ms (5 khung hình/giây)
 
+
+#define BLINK_DURATION 			100
+#define BLINK_TIMES    			3
 
 #endif /* INC_GLOBAL_H_ */

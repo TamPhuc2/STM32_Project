@@ -82,6 +82,10 @@ void Error_Handler(void);
 #define select_button_GPIO_Port GPIOA
 #define list_button_Pin GPIO_PIN_12
 #define list_button_GPIO_Port GPIOA
+#define LED_WIN_Pin GPIO_PIN_4
+#define LED_WIN_GPIO_Port GPIOB
+#define LED_LOSE_Pin GPIO_PIN_5
+#define LED_LOSE_GPIO_Port GPIOB
 #define SCL_Pin GPIO_PIN_6
 #define SCL_GPIO_Port GPIOB
 #define SDA_Pin GPIO_PIN_7

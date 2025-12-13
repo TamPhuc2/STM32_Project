@@ -15,6 +15,7 @@
 #include "display_7SEG.h"
 #include "random_gen.h"
 #include "logic_game.h"
+#include "led_anounce.h"
 
 // include lcd
 
@@ -149,12 +150,16 @@ void mode_two_players(){
 				//check result
 				switch(check_result_two_players()){
 				case FIRST_PLAYER:
+					Led_BlinkRed();
 					display_announcement(P2_LOSE);
 					break;
 				case SECOND_PLAYER:
+
+					Led_BlinkGreen();
 					display_announcement(P1_LOSE);
 					break;
 				case DRAW:
+					Led_BlinkBoth();
 					display_announcement(TIE);
 					break;
 				default:
