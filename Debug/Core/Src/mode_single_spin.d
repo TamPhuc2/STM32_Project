@@ -35,7 +35,7 @@ Core/Src/mode_single_spin.o: ../Core/Src/mode_single_spin.c \
  ../Core/Inc/button.h ../Core/Inc/global.h ../Core/Inc/software_timer.h \
  ../Core/Inc/display_7SEG.h ../Core/Inc/display_LCD.h \
  ../Core/Inc/random_gen.h ../Core/Inc/led_anounce.h \
- ../Core/Inc/logic_game.h
+ ../Core/Inc/logic_game.h ../Core/Inc/buzzer.h
 
 ../Core/Inc/mode_single_spin.h:
 
@@ -134,3 +134,5 @@ Core/Src/mode_single_spin.o: ../Core/Src/mode_single_spin.c \
 ../Core/Inc/led_anounce.h:
 
 ../Core/Inc/logic_game.h:
+
+../Core/Inc/buzzer.h:

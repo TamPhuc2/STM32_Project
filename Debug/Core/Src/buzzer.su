@@ -1,0 +1,5 @@
+buzzer.c:26:10:GetARR	24	static
+buzzer.c:36:6:PlayNote	24	static
+buzzer.c:56:6:PlayJackpotTune	8	static
+buzzer.c:70:6:PlaySadLoseTune	8	static
+buzzer.c:78:6:PlayWelcomeTune	8	static

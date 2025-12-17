@@ -34,7 +34,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/mode_accel_decel_spin.h ../Core/Inc/mode_hold_spin.h \
  ../Core/Inc/mode_two_players.h ../Core/Inc/logic_game.h \
  ../Core/Inc/logic_game.h ../Core/Inc/global.h ../Core/Inc/display_LCD.h \
- ../Core/Inc/i2c_lcd.h ../Core/Inc/led_anounce.h
+ ../Core/Inc/i2c_lcd.h ../Core/Inc/led_anounce.h ../Core/Inc/buzzer.h
 
 ../Core/Inc/main.h:
 
@@ -135,3 +135,5 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/i2c_lcd.h:
 
 ../Core/Inc/led_anounce.h:
+
+../Core/Inc/buzzer.h:

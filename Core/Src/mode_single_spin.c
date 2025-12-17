@@ -14,6 +14,7 @@
 #include "random_gen.h"
 #include "led_anounce.h"
 #include "logic_game.h"
+#include "buzzer.h"
 
 void mode_single_spin(){
 	if(isButtonPressed(1) == 1){
@@ -45,11 +46,13 @@ void mode_single_spin(){
 
 				if(check_result_single_player()){
 					display_announcement(BIGWIN);
+					PlayJackpotTune();
 					Led_BlinkGreen();
 					display_list_button();
 				}
 				else{
 					display_announcement(BETTER_LUCK_NEXT_TIME);
+					PlaySadLoseTune();
 					Led_BlinkRed();
 					display_list_button();
 				}
