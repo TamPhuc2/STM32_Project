@@ -1,73 +1,152 @@
-LUCKY SPIN GAME - TRÒ CHƠI QUAY SỐ MAY MẮN
+# 🎰 Lucky Spin Game (STM32 Logic Design Project)
 
-Dự án thiết kế hệ thống nhúng sử dụng vi điều khiển STM32F103C8T6. Đây là một hệ thống giải trí mô phỏng mô hình quay số ngẫu nhiên với trải nghiệm tương tác đa dạng qua màn hình LCD, LED 7 đoạn và âm thanh
+Đồ án **Thiết kế luận lý (CO3091)** – Trường Đại học Bách Khoa TP.HCM
+Khoa Khoa học và Kỹ thuật Máy tính
 
---- 🎥 VIDEO MINH HỌA ---
+---
 
-Demo hoạt động của hệ thống trò chơi: [(https://www.youtube.com/watch?v=9HbF48BxAqI)]
+## 📌 Giới thiệu
 
---- TÍNH NĂNG NỔI BẬT ---
+**Lucky Spin Game** là một trò chơi quay số may mắn được hiện thực trên nền tảng **vi điều khiển STM32F103C8T6**. Hệ thống mô phỏng quá trình quay số ngẫu nhiên và hiển thị kết quả thông qua **3 LED 7 đoạn** và **màn hình LCD 20x4**, kết hợp với **nút nhấn** và **buzzer** để tạo trải nghiệm tương tác trực quan.
 
-Hệ thống hỗ trợ 4 chế độ chơi:
+Dự án nhằm mục tiêu áp dụng các kiến thức về:
 
-Single Spin: Nhấn nút một lần để kích hoạt vòng quay. Kết quả sẽ hiển thị sau 3 giây chờ.
+* Vi điều khiển STM32
+* Máy trạng thái hữu hạn (FSM)
+* Software Timer, xử lý nút nhấn
+* Giao tiếp ngoại vi (GPIO, I2C, PWM)
 
-Hold Spin: Nhấn và giữ nút để vòng quay chạy liên tục. Ngay khi thả tay, hệ thống sẽ dừng và chốt kết quả lập tức.
+---
 
-Accel-Decel Spin: Mô phỏng vật lý thực tế. Tốc độ tăng dần khi nhấn giữ và giảm tốc từ từ (có quán tính) sau khi thả tay cho đến khi dừng hẳn.
+## 🎮 Chức năng chính
 
-Two Players: Chế độ đối kháng dành cho 2 người. Hệ thống tự động phân định thắng thua dựa trên quy tắc: Jackpot (3 số giống nhau) > Đôi > Tổng điểm.
+Hệ thống hỗ trợ **4 chế độ chơi**:
 
---- LINH KIỆN PHẦN CỨNG ---
+1. **Single Spin**
+   Nhấn nút một lần để quay. Sau 3 giây, hệ thống dừng và hiển thị kết quả.
 
-Vi điều khiển: STM32F103C8T6 (Blue Pill)
+2. **Hold Spin**
+   Nhấn và giữ nút để quay, thả nút thì dừng ngay lập tức.
 
-LED 7 đoạn: 3 LED đơn, điều khiển qua 3 IC dịch 74HC595 (Daisy-chain)
+3. **Accel–Decel Spin**
+   Giữ nút để tăng tốc quay, thả nút thì hệ thống giảm tốc dần rồi dừng.
 
-Màn hình LCD: LCD 2004 giao tiếp qua module I2C
+4. **Two Players**
+   Hai người chơi lần lượt quay số. Kết quả được so sánh theo thứ tự ưu tiên:
 
-Âm thanh: Buzzer (Điều khiển bằng PWM tạo giai điệu)
+   * 3 số giống nhau
+   * 2 số giống nhau
+   * Tổng 3 số lớn hơn
+   * Trường hợp còn lại: hòa
 
-Điều khiển: 4 nút nhấn vật lý: Mode, Spin, Select, List Mode
+---
 
-Nguồn điện: 5V/3.3V qua mạch nạp ST-Link
+## 🧩 Phần cứng sử dụng
 
---- KIẾN TRÚC HỆ THỐNG ---
+* **MCU**: STM32F103C8T6
+* **Hiển thị**:
 
-Finite State Machine (FSM): Quản lý logic chuyển trạng thái giữa các màn hình và chế độ chơi chặt chẽ.
+  * 3 × LED 7 đoạn (điều khiển qua IC 74HC595)
+  * LCD 20x4 (HD44780, giao tiếp I2C – PCF8574)
+* **Input**: 4 nút nhấn
+* **Output**: Buzzer (PWM – TIM1)
+* **Nguồn**: 5V / 3.3V qua ST-Link
 
-Non-blocking Software Timer: Xử lý đa nhiệm (multitasking), quét LED, đọc nút nhấn và cập nhật LCD đồng thời mà không gây trễ hệ thống.
+---
 
-Software Debouncing: Thuật toán chống dội phím hiệu quả cho các nút nhấn vật lý.
+## 🧠 Thiết kế phần mềm
 
-Random Number Generator (RNG): Kết hợp tín hiệu nhiễu từ chân ADC thả nổi và HAL_GetTick() để tạo ra bộ số ngẫu nhiên thực thụ (000-999).
+### Kiến trúc tổng thể
 
---- CẤU TRÚC THƯ MỤC ---
-.
-├── Core/
-│   ├── Inc/               # File header (.h) định nghĩa trạng thái & cấu trúc
-│   └── Src/               # Mã nguồn (.c) - Logic FSM, Timer & Xử lý Button
-├── Drivers/               # Thư viện HAL của nhà sản xuất STM32
-├── Middlewares/           # Driver tùy chỉnh cho LCD I2C và 74HC595
-├── Screenshots/           # Hình ảnh minh họa và kết quả kiểm thử
-└── README.md              # Tài liệu hướng dẫn dự án
+Hệ thống được thiết kế theo mô hình phân tầng:
 
---- HƯỚNG DẪN NẠP CODE ---
+* **System**: nguồn, clock, reset
+* **Main Controller**: MCU, GPIO, Timer, I2C
+* **Software**:
 
-Tải mã nguồn: git clone hoặc tải file ZIP của repository này.
+  * Finite State Machine (FSM)
+  * Random Number Generator (ADC + thời gian)
+  * Logic so sánh kết quả
+* **User Interface**:
 
-Mở dự án: Sử dụng phần mềm STM32CubeIDE.
+  * Buttons
+  * LED 7 đoạn
+  * LCD
+  * Buzzer
 
-Kết nối phần cứng: Kết nối STM32 với máy tính qua mạch nạp ST-Link.
+### Kỹ thuật sử dụng
 
-Cấu hình: Kiểm tra sơ đồ chân (Pinout) trong file .ioc.
+* **Software Timer**:
 
-Thực thi: Build project và nhấn Flash để nạp chương trình xuống vi điều khiển.
+  * Timer Interrupt
+  * Bộ định thời - Scheduler
 
---- THÀNH VIÊN THỰC HIỆN ---
+* **Xử lý nút nhấn**:
 
-Tào Nguyễn Tâm Phúc - 2312716
+  * Debouncing bằng phần mềm
+  * Phân biệt nhấn ngắn / nhấn giữ / nhả nút
 
-Hà Trọng Sơn - 2312958
+* **FSM (Finite State Machine)**:
 
-Ngô Hồ Quân - 2312832
+  * INIT
+  * LIST_MODES
+  * MODE_SINGLE_SPIN
+  * MODE_HOLD_SPIN
+  * MODE_ACCEL_DECEL_SPIN
+  * MODE_TWO_PLAYERS
+  * HOME_SCREEN
+
+---
+
+## 🔊 Âm thanh (Buzzer)
+
+* Điều khiển bằng **PWM (TIM1)**
+* Có các giai điệu:
+
+  * Chào mừng khi khởi động
+  * Chiến thắng (Jackpot)
+  * Thất bại
+
+---
+
+## 🧪 Kiểm thử
+
+* Sử dụng **bộ số giả lập** để kiểm tra logic thắng/thua
+* Kiểm thử đầy đủ 4 chế độ chơi
+* Đánh giá khả năng hiển thị, phản hồi nút nhấn và âm thanh
+
+---
+
+## ⚠️ Hạn chế
+
+* Độ ngẫu nhiên chưa tuyệt đối trong môi trường ít nhiễu
+* Cấp nguồn trực tiếp từ ST-Link có thể gây nhấp nháy LCD
+* Hệ thống dây nối breadboard chưa tối ưu
+
+---
+
+## 🚀 Hướng phát triển
+
+* Sử dụng nguồn ngoài ổn định hơn
+* Cải thiện thuật toán sinh số ngẫu nhiên
+* Mở rộng tính năng:
+
+  * Kết nối Bluetooth/WiFi
+  * Thêm chế độ tính điểm
+
+---
+
+## 👨‍💻 Thành viên thực hiện
+
+| Họ tên                  | MSSV    | Nhiệm vụ                                   |
+| ----------------------- | ------- | ------------------------------------------ |
+| **Tào Nguyễn Tâm Phúc** | 2312716 | Tích hợp hệ thống, thiết kế mạch, kiểm thử |
+| **Hà Trọng Sơn**        | 2312958 | Thuật toán random, logic game, buzzer      |
+| **Ngô Hồ Quân**         | 2312832 | Timer, Scheduler, xử lý nút nhấn, LCD      |
+
+---
+
+## 🎥 Demo
+
+Video demo sản phẩm:
+👉 [https://www.youtube.com/watch?v=9HbF48BxAqI](https://www.youtube.com/watch?v=9HbF48BxAqI)
