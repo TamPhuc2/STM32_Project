@@ -78,9 +78,8 @@ void mode_accel_decel_spin(){
 				speed += speed_step;
 			}
 			else{
-                // --- INJECT TEST DATA ---
+				//test demo
                 apply_test_result_single();
-                // ------------------------
 
 				//stop
 				if(check_result_single_player()){
@@ -96,7 +95,6 @@ void mode_accel_decel_spin(){
 					Led_BlinkRed();
 					display_list_button();
 				}
-
 
 				// reset
 				speed = 500;

@@ -39,10 +39,8 @@ void mode_single_spin(){
 			}
 			else {
 				spin_flag = 0;
-
-                // --- INJECT TEST DATA ---
+				//test demo
                 apply_test_result_single();
-                // ------------------------
 
 				if(check_result_single_player()){
 					display_announcement(BIGWIN);

@@ -1,2 +1,2 @@
 mode_hold_spin.c:20:6:mode_hold_spin	16	static
-mode_hold_spin.c:72:6:display7SEG_mode_hold_spin	8	static
+mode_hold_spin.c:70:6:display7SEG_mode_hold_spin	8	static

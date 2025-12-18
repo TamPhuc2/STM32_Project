@@ -9,22 +9,10 @@
 
 
 
-// Các trạng thái máy trạng thái
-#define LED_STATE_IDLE 	0
-#define LED_STATE_ON   	1
-#define LED_STATE_OFF  	2
-
-// Các mục tiêu nhấp nháy
-#define TARGET_NONE  	0
-#define TARGET_GREEN 	1 //win / player 1
-#define TARGET_RED   	2 //lose / player 2
-#define TARGET_BOTH  	3 // draw
-
 static uint8_t current_state = LED_STATE_IDLE;
 static int blink_counter = 0;
 static uint8_t blink_target = TARGET_NONE; // Biến lưu xem đang nháy đèn nào
 
-// --- PRIVATE FUNCTIONS ---
 
 static void TurnOffAll(void){
     HAL_GPIO_WritePin(LED_WIN_GPIO_Port, LED_WIN_Pin, RESET);
@@ -54,7 +42,6 @@ static void StartBlinking(uint8_t target){
     current_state = LED_STATE_ON;
 }
 
-// --- PUBLIC FUNCTIONS ---
 
 void Led_Announce_Init(void){
     TurnOffAll();

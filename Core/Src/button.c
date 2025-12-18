@@ -73,38 +73,6 @@ void setButtonFlag(int index){
 	buttons[index].flag_pressed = 0;
 }
 
-//void getKeyInput(){
-//	for (int i = 0; i < NUM_BUTTONS; i++){
-//		buttons[i].KeyReg2 = buttons[i].KeyReg1;
-//		buttons[i].KeyReg1 = buttons[i].KeyReg0;
-//
-//		buttons[i].KeyReg0 = HAL_GPIO_ReadPin(BUTTON_PORTS[i], BUTTON_PINS[i]);
-//
-//		if ((buttons[i].KeyReg1 == buttons[i].KeyReg0) && (buttons[i].KeyReg1 == buttons[i].KeyReg2)){
-//			if (buttons[i].KeyReg2 != buttons[i].KeyReg3){
-//				buttons[i].KeyReg3 = buttons[i].KeyReg2;
-//
-//				if (buttons[i].KeyReg3 == PRESSED_STATE){
-//					buttons[i].TimeOutForKeyPress = 50;
-//					buttons[i].flag_pressed = 1;
-//				} else if (buttons[i].KeyReg3 == NORMAL_STATE) {
-//					buttons[i].flag_released = 1;
-//				}
-//			}
-//			else {
-//				if (buttons[i].KeyReg3 == PRESSED_STATE) {
-//					buttons[i].TimeOutForKeyPress--;
-//
-//				    if (buttons[i].TimeOutForKeyPress == 0) {
-//				    	buttons[i].TimeOutForKeyPress = 50;
-//
-//				        buttons[i].flag_long_pressed = 1;
-//				    }
-//				}
-//			}
-//		}
-//	}
-//}
 void getKeyInput(){
 	for (int i = 0; i < NUM_BUTTONS; i++){
 		buttons[i].KeyReg2 = buttons[i].KeyReg1;

@@ -47,10 +47,8 @@ void mode_hold_spin(){
 	//stop spin
 	if(isButtonReleased(1) == 1  && spin_flag == 1){
 		spin_flag = 0;
-
-        // --- INJECT TEST DATA ---
+		//test demo
         apply_test_result_single();
-        // ------------------------
 
 		if(check_result_single_player()){
 			display_announcement(BIGWIN);

@@ -123,8 +123,7 @@ void mode_two_players(){
 		}
 		else{
 			spin_flag = 0;
-
-			// --- INJECT TEST DATA CHO 2 PLAYERS ---
+			//test demo
             #if TEST_MODE
                 int p_idx = (index_player == 1) ? 0 : 1; // 0 là P1, 1 là P2
                 led_buffer[0] = test_multi_data[test_idx_multi][p_idx][0];
@@ -166,13 +165,8 @@ void mode_two_players(){
 					break;
 				}
 
-//				// reset first player
-//				index_player = 1;
-//
-//				//display result pressed
-//				current_displayed_index = 1;
 				waiting_result = 1;
-				setTimer(TIMER_WAIT_RESULT, 2000); // 2000ms = 2s
+				setTimer(TIMER_WAIT_RESULT, 2000); // 2000ms
 
 			}
 		}
